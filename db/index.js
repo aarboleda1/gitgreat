@@ -11,8 +11,26 @@ var sequelize = new Sequelize('gitgreat', 'root', '', {
   host: 'localhost', dialect: 'mysql'
 });
 
-var EventTable = sequelize.define('events', {
+var User = sequelize.define('users', {
+  accountName: {
+    type: Sequelize.STRING
+  },
+  displayName: {
+    type: Sequelize.STRING
+  },
+  pw: {
+    type: Sequelize.STRING
+  },
+  phoneNumber: {
+    type: Sequelize.STRING
+  }
+});
+
+var Event = sequelize.define('events', {
   name: {
+    type: Sequelize.STRING
+  },
+  description: {
     type: Sequelize.STRING
   },
   where: {
@@ -23,7 +41,7 @@ var EventTable = sequelize.define('events', {
   }
 });
 
-var ItemListTable = sequelize.define('itemlists', {
+var ItemList = sequelize.define('itemlists', {
   item: {
     type: Sequelize.STRING
   },
@@ -35,9 +53,9 @@ var ItemListTable = sequelize.define('itemlists', {
   },
 });
 
-var ReminderTable = sequelize.define('reminders', {
+var Reminder = sequelize.define('reminders', {
   phoneNumber: {
-    type: Sequelize.INTEGER
+    type: Sequelize.STRING
   },
   msg: {
     type: Sequelize.STRING
@@ -47,27 +65,41 @@ var ReminderTable = sequelize.define('reminders', {
   },
 });
 
-//Create associations such that ItemListTable and ReminderTable contain eventId
-ItemListTable.belongsTo(EventTable);
-ReminderTable.belongsTo(EventTable);
-
-sequelize
-  .authenticate()
-  .then(function(err) {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(function (err) {
-    console.log('Unable to connect to the database:', err);
-  });
-
-var PhotosTable = sequelize.define('photos', {
+var Photos = sequelize.define('photos', {
  url: {
    type: Sequelize.STRING
  }
 });
 
+// one itemlist : one event
+ItemList.belongsTo(Event);
+// one reminder : one event
+Reminder.belongsTo(Event);
 
-module.exports.PhotosTable = PhotosTable;
-module.exports.EventTable = EventTable;
-module.exports.ItemListTable = ItemListTable;    
-module.exports.ReminderTable = ReminderTable;
+// many events : many attendees join table
+Event.belongsToMany(User, {through: 'EventAttendee'});
+User.belongsToMany(Event, {through: 'EventAttendee'});
+
+// many events : many planners join table
+Event.belongsToMany(User, {through: 'EventPlanner'});
+User.belongsToMany(Event, {through: 'EventPlanner'});
+
+sequelize
+.authenticate()
+.then(function(err) {
+  console.log('Connection has been established successfully.');
+})
+.catch(function (err) {
+  console.log('Unable to connect to the database:', err);
+});
+
+sequelize.sync({
+  // Do not drop tables on server restart
+  force: false
+});
+
+module.exports.User = User;
+module.exports.Event = Event;
+module.exports.ItemList = ItemList;    
+module.exports.Reminder = Reminder;
+module.exports.Photos = Photos;
