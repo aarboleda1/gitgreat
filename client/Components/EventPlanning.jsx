@@ -1,6 +1,8 @@
 //Child component contained within HomepageApp
 //Contains the event planning navigation bar
+
 class EventPlanning extends React.Component {
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -9,16 +11,18 @@ class EventPlanning extends React.Component {
 
     this.changeDisplay = this.changeDisplay.bind(this);
   }
-
+  
   changeDisplay(e) {
+    console.log(e.target.className);
     this.setState({
-      tab: e.target.value
+      tab: e.target.className
     });
   }
 
-  render() {
+
+  render () {
     var view;
-    if (this.state.tab === 'whatToBringBtn') {
+    if (this.state.tab === 'wtbBtn') {
       view = <WhatToBring featuredEvent={this.props.featuredEvent}/>;
     } else if (this.state.tab === 'activitiesBtn') {
       view = <Activities />;
@@ -28,13 +32,18 @@ class EventPlanning extends React.Component {
      view = <Photos uploadFile={this.uploadFile} />;
     }
     return (
-      <div>
-        <h1 className="eventHeader">{this.props.featuredEvent.name} | {this.props.featuredEvent.where} | {this.props.featuredEvent.when}</h1>
+      <div>      
+        {/*<h2 className="eventHeader">{this.props.featuredEvent.name} | {this.props.featuredEvent.where} | {this.props.featuredEvent.when}</h2>*/}
         <FeatureNavigation changeDisplay={this.changeDisplay} />
         {view}
-      </div>
-    );
+      </div>     
+    ) 
   }
+
+
 }
+
+// this is where to display the nav bar
+
 window.EventPlanning = EventPlanning;
 
