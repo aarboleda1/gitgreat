@@ -62,7 +62,7 @@ class Reminders extends React.Component {
 
   render() {
     return (
-      <div>
+      <div className="bringForm">
         <h2>Reminder</h2>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
