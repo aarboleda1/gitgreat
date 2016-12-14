@@ -1,5 +1,6 @@
 //Child component within the Event Planning component
 //Allows user to navigate between the event planning details
+import React from 'react';
 
 var FeatureNavigation = (props) => (
   // var sidebarClass = this.props.isOpen ? 'sidebar open' : 'sidebar';
@@ -14,5 +15,7 @@ var FeatureNavigation = (props) => (
     <a href="#" data-activates="slide-out" className="button-collapse"><i onClick={() => props.openNav()} className="material-icons">Navigation</i></a>
   </div>
 );
+
+export default FeatureNavigation;
 
 window.FeatureNavigation = FeatureNavigation;

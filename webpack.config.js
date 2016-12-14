@@ -5,8 +5,7 @@ module.exports = {
   devtool: 'source-map',
   context: path.join(__dirname, 'client'),
   entry: [
-    './CreateEventAppIndex.js',
-    './HomepageAppIndex.js'
+    './Main.js',
   ],
   output: {
     path: path.join(__dirname, 'dist'),
@@ -14,9 +13,8 @@ module.exports = {
   },
   module: {
         loaders: [
-          { test: /\.jsx$/, exclude: /node_modules/, loader: "babel-loader" },
-          { test: /\.css$/, exclude: /\.useable\.css$/, loader: "style-loader!css-loader" },
-          { test: /\.useable\.css$/, loader: "style-loader/useable!css-loader" }
+          { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
+          { test: /\.css$/, loader: "style-loader!css-loader" },
         ]
   },
   resolveLoader: {

@@ -1,7 +1,11 @@
 //Child component contained within HomepageApp
 //Contains the event planning navigation bar
 import React from 'react';
-import sidebar from 'react-sidebar';
+import FeatureNavigation from './FeatureNavigation.jsx';
+import WhatToBring from './WhatToBring.jsx';
+import Activities from './Activities.jsx';
+import Reminders from './Reminders.jsx';
+import Photos from './Photos.jsx';
 
 class EventPlanning extends React.Component {
   
@@ -58,6 +62,5 @@ class EventPlanning extends React.Component {
 }
 
 // this is where to display the nav bar
-
-window.EventPlanning = EventPlanning;
+export default EventPlanning;
 

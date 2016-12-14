@@ -1,7 +1,12 @@
 //Parent App within homepage.html
 //Allows users to view events, create and view event planning details
+import React from 'react';
+import EventList from './EventList.jsx';
+import EventPlanning from './EventPlanning.jsx';
+import Nav from './nav.jsx';
+import $ from 'jquery'
 
-class App extends React.Component {
+class HomepageApp extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -58,5 +63,4 @@ class App extends React.Component {
   }
 }
 
-
-window.App = App;
+export default HomepageApp;

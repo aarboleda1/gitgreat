@@ -1,5 +1,7 @@
 //Child component within the Event Planning component
 //Allows users to create a list of items that need to be brought to an event;
+import React from 'react';
+
 class WhatToBring extends React.Component {
   constructor(props) {
     super(props);
@@ -118,3 +120,5 @@ class WhatToBring extends React.Component {
     );
   }
 }
+
+export default WhatToBring;

@@ -2,8 +2,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HomepageApp from './Components/HomepageApp.jsx';
+import CreateEventApp from './Components/CreateEventApp.jsx'
 
 ReactDOM.render(
-  <HomepageApp />, 
-  document.getElementById('HomepageApp') 
+  <CreateEventApp />, 
+  document.getElementById('CreateEventApp') 
 );
