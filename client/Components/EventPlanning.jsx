@@ -10,6 +10,8 @@ class EventPlanning extends React.Component {
     };
 
     this.changeDisplay = this.changeDisplay.bind(this);
+    this.openNav = this.openNav.bind(this);
+    this.closeNav = this.closeNav.bind(this);
   }
   
   changeDisplay(e) {
@@ -17,6 +19,16 @@ class EventPlanning extends React.Component {
     this.setState({
       tab: e.target.className
     });
+  }
+
+  openNav() {
+    document.getElementById("slide-out").style.width = "285px";
+    console.log(document.getElementById("slide-out").style.width);
+  }
+
+  closeNav() {
+    console.log('CLICKED')
+    document.getElementById("slide-out").style.width = "0";
   }
 
 
@@ -34,7 +46,7 @@ class EventPlanning extends React.Component {
     return (
       <div>      
         {/*<h2 className="eventHeader">{this.props.featuredEvent.name} | {this.props.featuredEvent.where} | {this.props.featuredEvent.when}</h2>*/}
-        <FeatureNavigation changeDisplay={this.changeDisplay} />
+        <FeatureNavigation openNav={this.openNav} closeNav={this.closeNav} changeDisplay={this.changeDisplay} />
         {view}
       </div>     
     ) 
