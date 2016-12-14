@@ -74,6 +74,7 @@ class WhatToBring extends React.Component {
   render() {
     return (
       <div>
+        <h3>Reminder</h3>
         <form className="bringForm" onSubmit={this.handleSubmit}>
           <label>
             Owner:
