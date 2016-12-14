@@ -15,6 +15,10 @@ module.exports = function(app){
     res.redirect('/createEvent.html');
   });
 
+  // needs a User,
+  // go to events-attendee table, get all events where 
+  // user -> userid -> eventid(s) -> events
+  // user | event
   app.get('/eventTable', function(req, res, next) {
     dbModels.Event.findAll({order: [['when', 'DESC']]})
     .then(function(events) {
@@ -22,6 +26,7 @@ module.exports = function(app){
     });
   });
 
+  // needs a user
   app.post('/eventTable', function(req, res, next) {
     dbModels.Event
     .create({

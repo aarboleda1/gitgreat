@@ -13,7 +13,8 @@ var sequelize = new Sequelize('gitgreat', 'root', '', {
 
 var User = sequelize.define('users', {
   accountName: {
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    unique: true
   },
   displayName: {
     type: Sequelize.STRING
@@ -73,6 +74,7 @@ var Photos = sequelize.define('photos', {
 
 // one itemlist : one event
 ItemList.belongsTo(Event);
+
 // one reminder : one event
 Reminder.belongsTo(Event);
 
@@ -94,8 +96,9 @@ sequelize
 });
 
 sequelize.sync({
-  // Do not drop tables on server restart
-  force: false
+  // Drop tables on server restart 
+  // (change to false after development)
+  force: true
 });
 
 module.exports.User = User;
