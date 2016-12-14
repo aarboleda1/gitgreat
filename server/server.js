@@ -1,5 +1,6 @@
 const express = require('express');
 const parser = require('body-parser');
+const path = require('path');
 const url = require('url');
 
 const db = require('../db');
@@ -8,9 +9,10 @@ const app = express();
 app.use(parser.json());
 
 //serve public folder static files
-app.use(express.static('../public'));
+app.use(express.static(path.join(__dirname, '../public')));
+
 //serve node_modules via the '/script' virtual file path
-app.use('/scripts', express.static('../node_modules'));
+app.use('/scripts', express.static(path.join(__dirname, '../node_modules')));
 
 const mainRoutes = require('./routes/')(app);
 

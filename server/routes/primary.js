@@ -9,8 +9,16 @@ module.exports = function(app){
   app.get('/', function(req, res, next) {
     res.redirect('/homepage.html');
   });
+
   app.get('/create', function(req, res, next) {
     res.redirect('/createEvent.html');
+  });
+
+  app.get('/eventTable', function(req, res, next) {
+    dbModels.Event.findAll({order: [['when', 'DESC']]})
+    .then(function(events) {
+      utils.sendResponse(res, 200, 'application/json', events);
+    });
   });
 
   app.post('/eventTable', function(req, res, next) {
@@ -28,10 +36,15 @@ module.exports = function(app){
     });
   });
 
-  app.get('/eventTable', function(req, res, next) {
-    dbModels.Event.findAll({order: [['when', 'DESC']]})
-    .then(function(events) {
-      utils.sendResponse(res, 200, 'application/json', events);
+  app.get('/itemList', function(req, res, next) {
+    var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
+    dbModels.Event.findOne({where: {name: eventName}})
+    .then(function(event) {
+      var eventId = event.id;
+      dbModels.ItemList.findAll({where: {eventId: eventId}})
+      .then(function(items) {
+        utils.sendResponse(res, 200, 'application/json', items);
+      });
     });
   });
 
@@ -55,18 +68,18 @@ module.exports = function(app){
     });
   });
 
-  app.get('/itemList', function(req, res, next) {
+  app.get('/reminders', function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
     dbModels.Event.findOne({where: {name: eventName}})
     .then(function(event) {
       var eventId = event.id;
-      dbModels.ItemList.findAll({where: {eventId: eventId}})
-      .then(function(items) {
-        utils.sendResponse(res, 200, 'application/json', items);
+      dbModels.Reminder.findAll({where: {eventId: eventId}})
+      .then(function(reminders) {
+        utils.sendResponse(res, 200, 'application/json', reminders);
       });
     });
   });
-
+  
   app.post('/reminders', function(req, res, next) {
     var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
     dbModels.Event.findOne({where: {name: eventName}})
@@ -87,50 +100,38 @@ module.exports = function(app){
     });
   });
 
-  app.get('/reminders', function(req, res, next) {
-    var eventName = url.parse(req.url).query.slice(10).split('_').join(' ');
-    dbModels.Event.findOne({where: {name: eventName}})
-    .then(function(event) {
-      var eventId = event.id;
-      dbModels.Reminder.findAll({where: {eventId: eventId}})
-      .then(function(reminders) {
-        utils.sendResponse(res, 200, 'application/json', reminders);
-      });
-    });
-  });
+  // will not be using below
+  // app.get('/displayImages', function(req, res) {
+  //   console.log('hits displayimages in server');
+  //   dbModels.Photos.findAll()
+  //   .then(function(data) {
+  //     for(var pair in data.entries()) {
+  //       console.log(pair);
+  //     }
+  //     res.send(data);
+  //   });
+  // });
 
+  // app.post('/uploadImage', function(req, res) {
+  //   console.log('hits uploadImage in server');
+  //   var form = new multiparty.Form();
+  //   form.parse(req, function(err, fields, files) {
+  //     console.log('fields: ', fields);
+  //     console.log('files: ', files);
+  //     console.log('file:', files.imageFile[0].path);
 
-  app.post('/uploadImage', function(req, res) {
-    console.log('hits uploadImage in server');
-    var form = new multiparty.Form();
-    form.parse(req, function(err, fields, files) {
-      console.log('fields: ', fields);
-      console.log('files: ', files);
-      console.log('file:', files.imageFile[0].path);
+  //     cloudinary.uploader.upload(files.imageFile[0].path, function(result) {
+  //       console.log('cloudinary resulttt: ', result);
+  //       dbModels.Photos.create({url: result.url})
+  //       .then(function(event) {
+  //         console.log('successfully added url to db!!!');
+  //       })
+  //       .catch(function(err) {
+  //         console.log('photosTable db entry error: ', err);
+  //       });
+  //     });
 
-      cloudinary.uploader.upload(files.imageFile[0].path, function(result) {
-        console.log('cloudinary resulttt: ', result);
-        dbModels.Photos.create({url: result.url})
-        .then(function(event) {
-          console.log('successfully added url to db!!!');
-        })
-        .catch(function(err) {
-          console.log('photosTable db entry error: ', err);
-        });
-      });
-
-    });
-    res.send();
-  });
-
-  app.get('/displayImages', function(req, res) {
-    console.log('hits displayimages in server');
-    dbModels.Photos.findAll()
-    .then(function(data) {
-      for(var pair in data.entries()) {
-        console.log(pair);
-      }
-      res.send(data);
-    });
-  });
+  //   });
+  //   res.send();
+  // });
 }
