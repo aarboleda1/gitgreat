@@ -22,7 +22,8 @@ class EventPlanning extends React.Component {
   }
 
   openNav() {
-    document.getElementById("slide-out").style.width = "250px";
+    document.getElementById("slide-out").style.width = "285px";
+    console.log(document.getElementById("slide-out").style.width);
   }
 
   closeNav() {
