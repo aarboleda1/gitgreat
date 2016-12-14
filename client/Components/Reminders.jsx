@@ -63,7 +63,7 @@ class Reminders extends React.Component {
   render() {
     return (
       <div className="bringForm">
-        <h2>Reminder</h2>
+        <h3>Reminder</h3>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
             Phone Number:

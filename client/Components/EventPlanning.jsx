@@ -1,5 +1,7 @@
 //Child component contained within HomepageApp
 //Contains the event planning navigation bar
+import React from 'react';
+import sidebar from 'react-sidebar';
 
 class EventPlanning extends React.Component {
   
