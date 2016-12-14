@@ -148,3 +148,24 @@ td, th {
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+/* * * * * * * * * *
+ *                 *
+ *   side-nav      *
+ *                 *
+ * * * * * * * * * */
+
+.side-nav {
+  left: 300px;
+  top: 79px;
+}
+
+#reminder-wrapper {
+   height:100%;
+   width: 100%;
+   margin: 0;
+   padding: 0;
+   border: 0;
+}
+
+
