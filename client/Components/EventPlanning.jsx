@@ -5,7 +5,6 @@ import FeatureNavigation from './FeatureNavigation.jsx';
 import WhatToBring from './WhatToBring.jsx';
 import Activities from './Activities.jsx';
 import Reminders from './Reminders.jsx';
-import Photos from './Photos.jsx';
 
 class EventPlanning extends React.Component {
   
@@ -29,6 +28,7 @@ class EventPlanning extends React.Component {
   }
 
   openNav() {
+    console.log('openNav in EventPlanning.jsx')
     document.getElementById("slide-out").style.width = "285px";
     console.log(document.getElementById("slide-out").style.width);
   }
@@ -47,9 +47,7 @@ class EventPlanning extends React.Component {
       view = <Activities />;
     } else if (this.state.tab === 'reminderBtn') {
       view = <Reminders featuredEvent={this.props.featuredEvent}/>;
-    } else if (this.state.tab === 'photosBtn') {
-     view = <Photos uploadFile={this.uploadFile} />;
-    }
+    } 
     return (
       <div>      
         {/*<h2 className="eventHeader">{this.props.featuredEvent.name} | {this.props.featuredEvent.where} | {this.props.featuredEvent.when}</h2>*/}

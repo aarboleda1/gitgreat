@@ -1,6 +1,7 @@
 //Child component within the Event Planning component
 //Allows users to send a reminder for purposes of event planning
 import React from 'react';
+import $ from 'jquery';
 
 class Reminders extends React.Component {
   constructor(props) {
@@ -24,7 +25,7 @@ class Reminders extends React.Component {
   fetchReminders() {
     //The event name is passed along to the server via query parameters 
     //so that we can display reminders associated with a specific event.
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    // var eventParam = this.props.featuredEvent.name.split(' ').join('_');
     var successHandler = function(data) {
       this.setState({reminders: data});
     };

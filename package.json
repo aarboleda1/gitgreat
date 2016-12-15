@@ -35,7 +35,9 @@
     "multiparty": "^4.1.2",
     "mysql": "^2.12.0",
     "path": "^0.12.7",
+    "radium": "^0.18.1",
     "react": "^15.4.1",
+    "react-burger-menu": "^1.10.9",
     "react-dom": "^15.4.1",
     "react-router": "^3.0.0",
     "sequelize": "^3.27.0",
@@ -47,5 +49,9 @@
     "webpack": "^1.14.0",
     "webpack-dev-middleware": "^1.8.4",
     "webpack-dev-server": "^1.16.2"
+  },
+  "devDependencies": {
+    "css-loader": "^0.26.1",
+    "style-loader": "^0.13.1"
   }
 }

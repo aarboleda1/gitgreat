@@ -15,7 +15,6 @@ const webpackConfig = require('../webpack.config.js');
 
 const compiler = webpack(webpackConfig);
 //serve public folder static files
-// app.use(express.static(path.join(__dirname, '../public')));
  
 app.use(webpackDevMiddleware(compiler, {
   hot: true,

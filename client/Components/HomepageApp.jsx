@@ -56,10 +56,10 @@ class HomepageApp extends React.Component {
     }
 
     return (
-      <div>
-        <Nav />
-        {view}
-      </div>
+        <div>
+          <Nav />
+          {view}
+        </div>
     );
   }
 }
