@@ -58,7 +58,7 @@ module.exports = function(app){
                         e.where, \
                         e.when \
                       FROM users as attendee \
-                        INNER JOIN eventattendee as ea ON (attendee.id = ea.userId) \
+                        INNER JOIN eventattendees as ea ON (attendee.id = ea.userId) \
                         INNER JOIN events as e ON (ea.eventId = e.id) \
                       WHERE attendee.accountName = ';
     queryString = queryString.concat(accountName);
@@ -77,7 +77,7 @@ module.exports = function(app){
   app.post('/attendingEvents', function(req, res, next) {
     var accountName = '"' + req.body.accountName + '"';
     var eventName = '"' + req.body.eventName + '"';
-    var queryString ='INSERT INTO eventattendee (eventId, userId) \
+    var queryString ='INSERT INTO eventattendees (eventId, userId) \
                       SELECT \
                         user.id, event.id \
                       FROM users AS user \
@@ -106,7 +106,7 @@ module.exports = function(app){
                         e.where, \
                         e.when \
                       FROM users as planner \
-                        INNER JOIN eventplanner as ea ON (planner.id = ea.userId) \
+                        INNER JOIN eventplanners as ea ON (planner.id = ea.userId) \
                         INNER JOIN events as e ON (ea.eventId = e.id) \
                       WHERE planner.accountName = ';
     queryString = queryString.concat(accountName);
@@ -125,7 +125,7 @@ module.exports = function(app){
   app.post('/planningEvents', function(req, res, next) {
     var accountName = '"' + req.body.accountName + '"';
     var eventName = '"' + req.body.eventName + '"';
-    var queryString ='INSERT INTO eventplanner (eventId, userId) \
+    var queryString ='INSERT INTO eventplanners (eventId, userId) \
                       SELECT \
                         user.id, event.id \
                       FROM users AS user \

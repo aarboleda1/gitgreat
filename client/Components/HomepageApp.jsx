@@ -12,21 +12,43 @@ class HomepageApp extends React.Component {
     super(props);
     this.state = {
       eventList: null,
+      planningList: null,
       page: 'homepage',
       featuredEvent: null
     };
     this.handleEntryClick = this.handleEntryClick.bind(this);
   }
+
+  isPlanningEvent(event) {
+    var planList = this.state.planningList;
+
+    for (var i = 0; i < planList.length; i++) {
+      if (planList[i].name === event.name) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
   componentDidMount() {
     //sends a get request to the server to populate the eventList array in this component's state,
     //which gets passed as a prop into the Eventlist component
-    var successHandler = function(data) {
+    var attendingEventsHandler = function(data) {
       this.setState({eventList: data});
+    };
+    var planningEventsHandler = function(data) {
+      this.setState({planningList: data});
     };
     $.ajax({
       method: 'GET',
-      url: '/eventTable',
-      success: successHandler.bind(this)
+      url: '/attendingEvents',
+      success: attendingEventsHandler.bind(this)
+    });
+    $.ajax({
+      method: 'GET',
+      url: '/planningEvents',
+      success: planningEventsHandler.bind(this)
     });
   }
 
