@@ -8,7 +8,9 @@ class FeatureNavigation extends React.Component {
   render() {
     return (
       <Menu>
+        <RadiumLink className="home" to="/home">Home</RadiumLink>
         <RadiumLink className="wtb" to="/wtb">What To Bring</RadiumLink>
+        <RadiumLink className="transportation" to="/transportation">Transportation</RadiumLink>
         <RadiumLink className="reminders" to="/reminders">Reminders</RadiumLink>
       </Menu>
     );
@@ -16,7 +18,3 @@ class FeatureNavigation extends React.Component {
 };
 
 export default FeatureNavigation;
-
-
-
-
