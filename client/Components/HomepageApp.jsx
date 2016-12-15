@@ -53,6 +53,7 @@ class HomepageApp extends React.Component {
       method: 'GET',
       url: '/planningEvents?accountName=' + this.props.accountName,
       success: planningEventsHandler.bind(this)
+
     });
   }
 

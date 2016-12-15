@@ -1,7 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
 
-// Needed props: Location name, address, isPlanner
+// Needed props: Location address, isPlanner
 class Location extends React.Component {
   constructor(props) {
     super(props);
@@ -9,11 +9,9 @@ class Location extends React.Component {
 
     this.state = {
       eventLocation: this.currentProps.eventLocation,
-      eventAddress: this.currentProps.eventAddress
     };
 
     this.handleLocationEdit = this.handleLocationEdit.bind(this);
-    this.handleAddressEdit = this.handleAddressEdit.bind(this);
   }
 
   handleLocationEdit() {
@@ -24,25 +22,15 @@ class Location extends React.Component {
     });
 
     // Send a put request to the server to edit the address of the event
+    var putData = {
+      original: this.currentProps.eventLocation,
+      new: newLocation
+    };
+
     $.ajax({
       method: 'PUT',
       url: '/editeventlocation',
-      data: newLocation
-    });
-  }
-
-  handleAddressEdit() {
-    var newAddress = prompt('New Address:');
-
-    this.setState({
-      eventAddress: newAddress
-    });
-
-    // Send a put request to the server to edit the address of the event
-    $.ajax({
-      method: 'PUT',
-      url: '/editeventaddress',
-      data: newAddress
+      data: putData
     });
   }
 
@@ -50,7 +38,7 @@ class Location extends React.Component {
     var view;
 
     var API_KEY = 'AIzaSyC5jq_3YTRuafmiAx6OJ7fQGPPcWVc26m0';
-    var source = 'https://www.google.com/maps/embed/v1/place?key=' + API_KEY + '&q=' + this.state.eventAddress;
+    var source = 'https://www.google.com/maps/embed/v1/place?key=' + API_KEY + '&q=' + this.state.eventLocation;
 
     if (this.currentProps.isPlanner) {
       view = (
@@ -62,7 +50,6 @@ class Location extends React.Component {
               src={source} allowFullScreen>
             </iframe>
           </div>
-          {this.state.eventAddress} <img onClick={this.handleAddressEdit} style={{'width': '15px'}} src="../public/assets/edit.png" />
         </div>
       );
     } else {
@@ -75,7 +62,6 @@ class Location extends React.Component {
               src={source} allowFullScreen>
             </iframe>
           </div>
-          {this.state.eventAddress}
         </div> 
       );
     }

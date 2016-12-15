@@ -16,7 +16,6 @@ class Forum extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  // AJAX get request to the database to fetch the messages and update state with it
   componentDidMount() {
     var successHandler = function(data) {
       this.setState({
@@ -24,9 +23,14 @@ class Forum extends React.Component {
       });
     };
 
+    // AJAX get request to the database to fetch the messages and update state with it
+    // Based on the current event
     $.ajax({
       method: 'GET',
-      url: '/getforummessages',
+      url: '/forummessages',
+      params: {
+        eventName: this.currentProps.eventName
+      },
       success: successHandler.bind(this)
     });
   }
@@ -48,11 +52,16 @@ class Forum extends React.Component {
       messages: newMessageArray
     });
 
+    var putData = {
+      eventName: this.currentProps.eventName,
+      messages: newMessageArray
+    };
+
     // Send a put request to the server to update messages database
     $.ajax({
       method: 'PUT',
-      url: '/updatemessages',
-      data: newMessageArray
+      url: '/forummessages',
+      data: putData
     });
 
 

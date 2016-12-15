@@ -72,11 +72,20 @@ var Photos = sequelize.define('photos', {
  }
 });
 
+var Messages = sequelize.define('messages', {
+  messages: {
+    type: Sequelize.STRING
+  }
+});
+
 // one itemlist : one event
 ItemList.belongsTo(Event);
 
 // one reminder : one event
 Reminder.belongsTo(Event);
+
+// one array of messages : one event
+Messages.belongsTo(Event);
 
 // initial setup to remove timestamps join tables (sequelize on-default adds)
 var EventAttendee = sequelize.define('eventattendee', {

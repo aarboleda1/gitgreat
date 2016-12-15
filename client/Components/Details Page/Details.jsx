@@ -1,8 +1,8 @@
 import React from 'react';
-import Description from './Description.jsx'
-import Location from './Location.jsx'
-import Forum from './Forum.jsx'
-import Attendees from './Attendees.jsx'
+import Description from './Description.jsx';
+import Location from './Location.jsx';
+import Forum from './Forum.jsx';
+import Attendees from './Attendees.jsx';
 
 class Details extends React.Component {
   constructor(props) {
@@ -20,11 +20,11 @@ class Details extends React.Component {
 
     var propsToLocation = {
       eventLocation: currentProps.eventLocation,
-      eventAddress: currentProps.eventAddress,
       isPlanner: currentProps.isPlanner
     };
 
     var propsToForum = {
+      eventName: currentProps.eventName,
       username: currentProps.username
     };
 

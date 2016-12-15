@@ -25,10 +25,15 @@ class Description extends React.Component {
       eventName: newEventName
     });
 
+    putData = {
+      original: this.currentProps.eventName,
+      new: newEventName
+    };
+
     $.ajax({
       method: 'PUT',
       url: '/editeventname',
-      data: newEventName
+      data: putData
     });
   }
 
@@ -40,10 +45,15 @@ class Description extends React.Component {
       eventDescription: newEventDescription
     });
 
+    putData = {
+      original: this.currentProps.eventName,
+      new: newEventDescription
+    };
+
     $.ajax({
       method: 'PUT',
       url: '/editeventdescription',
-      data: newEventDescription
+      data: putData
     });
   }
 

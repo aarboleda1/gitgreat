@@ -39,7 +39,7 @@ class Transportation extends React.Component {
     this.forceUpdate();
   }
 
-  handleSubmit(e) {
+  handleVolunteer(e) {
     var newCarArray = this.state.cars;
     var newCar = {
       driver: this.currentProps.username,
@@ -60,23 +60,20 @@ class Transportation extends React.Component {
   }
 
   render() {
-    var API_KEY = 'AIzaSyC5jq_3YTRuafmiAx6OJ7fQGPPcWVc26m0';
-    var source = 'https://www.google.com/maps/embed/v1/place?key=' + API_KEY + '&q=' + this.currentProps.eventAddress;
+    var propsToTransportationMap = {
+      eventLocation: this.currentProps.eventLocation
+    };
 
     return (
       <div className="container" style={{'marginLeft': '400px'}}>
 
         <div className="transportation-map row">
-          <h3>{this.currentProps.eventLocation}</h3>
-          <iframe
-            width="700" height="300" frameBorder="0" style={{border: 0}}
-            src={source} allowFullScreen>
-          </iframe>
+          <TransportationMap propsToTransportationMap={propsToTransportationMap} />
         </div>
 
         <div className="volunteer-form row">
           <h3>Rides</h3>
-          <form onSubmit={this.handleSubmit}>
+          <form onSubmit={this.handleVolunteer}>
             <input type="text" onChange={this.handleChange} style={{'width': '250px'}} placeholder="Number of seats you have" />
             <input type="submit" value="Volunteer your ride!" />
           </form>
