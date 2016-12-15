@@ -1,3 +1,4 @@
+import React from 'react';
 import $ from 'jquery';
 
 // Location, address, and username needs to be passed down

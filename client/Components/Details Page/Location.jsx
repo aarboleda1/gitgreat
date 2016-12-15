@@ -62,7 +62,7 @@ class Location extends React.Component {
               src={source} allowFullScreen>
             </iframe>
           </div>
-          {this.state.eventAddress} <img onClick={this.handleAddressEdit} style={{'width': '15px'}} src="../assets/edit.png" />
+          {this.state.eventAddress} <img onClick={this.handleAddressEdit} style={{'width': '15px'}} src="../public/assets/edit.png" />
         </div>
       );
     } else {

@@ -1,6 +1,8 @@
 //Child component contained within HomepageApp
 //Contains the event planning navigation bar
 import React from 'react';
+import Details from './Details Page/Details.jsx'
+import Transportation from './Transportation Page/Transportation.jsx'
 import FeatureNavigation from './FeatureNavigation.jsx';
 import WhatToBring from './WhatToBring.jsx';
 import Activities from './Activities.jsx';
