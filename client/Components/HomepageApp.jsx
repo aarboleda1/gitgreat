@@ -6,7 +6,6 @@ import EventPlanning from './EventPlanning.jsx';
 import Nav from './nav.jsx';
 import $ from 'jquery';
 
-
 class HomepageApp extends React.Component {
   constructor(props) {
     super(props);
@@ -45,12 +44,12 @@ class HomepageApp extends React.Component {
     };
     $.ajax({
       method: 'GET',
-      url: '/attendingEvents',
+      url: '/attendingEvents?accountName=' + this.props.accountName,
       success: attendingEventsHandler.bind(this)
     });
     $.ajax({
       method: 'GET',
-      url: '/planningEvents',
+      url: '/planningEvents?accountName=' + this.props.accountName,
       success: planningEventsHandler.bind(this)
     });
   }
