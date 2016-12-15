@@ -11,14 +11,13 @@ import Transportation from './Components/Transportation Page/Transportation.jsx'
 import EventList from './Components/EventList.jsx';
 import EventPlanning from './Components/EventPlanning.jsx';
 
-import { Router, Route, hashHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 
 
 ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={HomepageApp}/>
-      <Route path="/create" component={CreateEventApp}/>
       <Route path="/home" component={Details}/>
       <Route path="/wtb" component={WhatToBring}/>
       <Route path="/reminders" component={Reminders}/>
