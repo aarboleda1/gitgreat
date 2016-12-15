@@ -53,7 +53,6 @@ class HomepageApp extends React.Component {
       method: 'GET',
       url: '/planningEvents?accountName=' + this.props.accountName,
       success: planningEventsHandler.bind(this)
-
     });
   }
 
@@ -87,7 +86,10 @@ class HomepageApp extends React.Component {
     return (
         <div>
           <Nav />
+<<<<<<< HEAD
           <EventList />
+=======
+>>>>>>> Commit before rebase
           {this.props.children}
         </div>
     );
