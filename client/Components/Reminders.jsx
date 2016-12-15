@@ -2,6 +2,8 @@
 //Allows users to send a reminder for purposes of event planning
 import React from 'react';
 import $ from 'jquery';
+import FeatureNavigation from './FeatureNavigation.jsx'
+import Nav from './nav.jsx';
 
 class Reminders extends React.Component {
   constructor(props) {
@@ -66,7 +68,11 @@ class Reminders extends React.Component {
   render() {
     return (
       <div className="bringForm">
+        <Nav/>
         <h3>Reminder</h3>
+        <div className="side-nav-reminders">
+          <FeatureNavigation pageWrapId={ "page-wrap" } styles={this.props.styles}/>
+        </div>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
             Phone Number:
@@ -108,6 +114,7 @@ class Reminders extends React.Component {
             )}
           </tbody>
         </table>
+
       </div>
     );
   }

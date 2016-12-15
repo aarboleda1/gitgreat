@@ -41,6 +41,40 @@ class EventPlanning extends React.Component {
 
   render () {
     var view;
+    var styles = {
+      bmBurgerButton: {
+        position: 'fixed',
+        width: '36px',
+        height: '30px',
+        left: '36px',
+        top: '36px'
+      },
+      bmBurgerBars: {
+        background: '#373a47'
+      },
+      bmCrossButton: {
+        height: '24px',
+        width: '24px'
+      },
+      bmCross: {
+        background: '#bdc3c7'
+      },
+      bmMenu: {
+        background: '#373a47',
+        padding: '2.5em 1.5em 0',
+        fontSize: '1.15em'
+      },
+      bmMorphShape: {
+        fill: '#373a47'
+      },
+      bmItemList: {
+        color: '#b8b7ad',
+        padding: '0.8em'
+      },
+      bmOverlay: {
+        background: 'rgba(0, 0, 0, 0.3)'
+      }
+    }
     if (this.state.tab === 'wtbBtn') {
       view = <WhatToBring featuredEvent={this.props.featuredEvent}/>;
     } else if (this.state.tab === 'activitiesBtn') {
@@ -51,7 +85,7 @@ class EventPlanning extends React.Component {
     return (
       <div>      
         {/*<h2 className="eventHeader">{this.props.featuredEvent.name} | {this.props.featuredEvent.where} | {this.props.featuredEvent.when}</h2>*/}
-        <FeatureNavigation openNav={this.openNav} closeNav={this.closeNav} changeDisplay={this.changeDisplay} />
+        <FeatureNavigation styles={styles} openNav={this.openNav} closeNav={this.closeNav} changeDisplay={this.changeDisplay} />
         {view}
       </div>     
     ) 
