@@ -25,8 +25,7 @@ ReactDOM.render((
       <Route path="/featnav" component={FeatureNavigation}/>
       <Route path="/eventlist" component={EventList}/>
       <Route path="/eventPlanning" component={EventPlanning}/>
-
-
+      <Route path="/create" component={CreateEventApp}/>
   </Router>
 ),document.getElementById('app'))
 

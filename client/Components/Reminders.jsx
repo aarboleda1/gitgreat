@@ -70,8 +70,8 @@ class Reminders extends React.Component {
       <div className="bringForm">
         <Nav/>
         <h3>Reminder</h3>
-        <div className="side-nav-reminders">
-          <FeatureNavigation pageWrapId={ "page-wrap" } styles={this.props.styles}/>
+        <div id="outer-container" styles={{height: '100%'}}>
+          <FeatureNavigation />
         </div>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
