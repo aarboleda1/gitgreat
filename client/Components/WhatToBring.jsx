@@ -79,10 +79,16 @@ class WhatToBring extends React.Component {
 
   render() {
     return (
-      <div>
+    <div className="what-to-bring-wrapper">  
+      <div className="nav-container">
         <Nav/>
-        <h2>What To Bring</h2>
+      </div>
+      <div id="outer-container" styles={{height: '100%'}}>
+        <FeatureNavigation />
+      </div>
+      <div>
         <form className="bringForm" onSubmit={this.handleSubmit}>
+        <h3>What To Bring</h3>
           <label>
             Owner:
           <input type='text' name='owner' 
@@ -121,10 +127,8 @@ class WhatToBring extends React.Component {
             )}
           </tbody>
         </table>
-        <div>
-          <FeatureNavigation pageWrapId={ "page-wrap" }/>
-        </div>
       </div>
+    </div>
     );
   }
 }

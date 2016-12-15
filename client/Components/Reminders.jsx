@@ -12,7 +12,8 @@ class Reminders extends React.Component {
       phoneNumber: '',
       msg: '',
       when: '',
-      reminders: []
+      reminders: [],
+      isOpen: null
     };
     this.handleWhenChange = this.handleWhenChange.bind(this);
     this.handleMsgChange = this.handleMsgChange.bind(this);
@@ -22,6 +23,9 @@ class Reminders extends React.Component {
 
   componentDidMount() {
     this.fetchReminders();
+    this.setState({
+      isOpen: true
+    })
   }
 
   fetchReminders() {
@@ -67,12 +71,15 @@ class Reminders extends React.Component {
 
   render() {
     return (
-      <div className="bringForm">
+    <div className="reminder-wrapper"> 
+      <div className="nav-container">
         <Nav/>
-        <h3>Reminder</h3>
-        <div className="side-nav-reminders">
-          <FeatureNavigation pageWrapId={ "page-wrap" } styles={this.props.styles}/>
+      </div>
+        <div id="outer-container" styles={{height: '100%'}}>
+          <FeatureNavigation />
         </div>
+      <div className="bringForm">
+        <h3>Reminder</h3>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
             Phone Number:
@@ -116,6 +123,7 @@ class Reminders extends React.Component {
         </table>
 
       </div>
+    </div>
     );
   }
 }

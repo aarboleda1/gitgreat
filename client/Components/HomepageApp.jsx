@@ -13,7 +13,7 @@ class HomepageApp extends React.Component {
       eventList: null,
       planningList: null,
       page: 'homepage',
-      featuredEvent: null
+      featuredEvent: null,
     };
     this.handleEntryClick = this.handleEntryClick.bind(this);
   }
@@ -34,9 +34,11 @@ class HomepageApp extends React.Component {
   }
 
   componentDidMount() {
+    console.log('mounted!!!')
     //sends a get request to the server to populate the eventList array in this component's state,
     //which gets passed as a prop into the Eventlist component
     var attendingEventsHandler = function(data) {
+      console.log(data, 'data inside attendingEvents')
       this.setState({eventList: data});
     };
     var planningEventsHandler = function(data) {
@@ -84,7 +86,8 @@ class HomepageApp extends React.Component {
     return (
         <div>
           <Nav />
-          {view}
+          <EventList />
+          {this.props.children}
         </div>
     );
   }
