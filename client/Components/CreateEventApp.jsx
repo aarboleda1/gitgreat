@@ -37,7 +37,7 @@ class CreateEventApp extends React.Component {
     };
     $.ajax({
       method: 'POST',
-      url: '/eventTable',
+      url: '/event',
       contentType: 'application/json',
       data: JSON.stringify(this.state),
       success: successHandler.bind(this)
