@@ -20,7 +20,6 @@ class Details extends React.Component {
 
     var propsToLocation = {
       eventLocation: currentProps.eventLocation,
-      eventAddress: currentProps.eventAddress,
       isPlanner: currentProps.isPlanner
     };
 

@@ -10,6 +10,7 @@ class CreateEventApp extends React.Component {
     super(props);
     this.state = {
       name: '',
+      description: '',
       when: '',
       where: ''
       // newEvent: {}
