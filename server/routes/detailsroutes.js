@@ -42,5 +42,6 @@ module.exports = function(app) {
     }).then(function(eventId) {
       dbModels.Messages.update({ messages: newMessagesArrayString }, { where: { eventId: eventId }});
     });
+
   });
 };
