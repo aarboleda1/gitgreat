@@ -22,10 +22,15 @@ class Location extends React.Component {
     });
 
     // Send a put request to the server to edit the address of the event
+    var putData = {
+      original: this.currentProps.eventLocation,
+      new: newLocation
+    };
+
     $.ajax({
       method: 'PUT',
       url: '/editeventlocation',
-      data: newLocation
+      data: putData
     });
   }
 

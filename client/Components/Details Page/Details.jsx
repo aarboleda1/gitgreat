@@ -24,6 +24,7 @@ class Details extends React.Component {
     };
 
     var propsToForum = {
+      eventName: currentProps.eventName,
       username: currentProps.username
     };
 
