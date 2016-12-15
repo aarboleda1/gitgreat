@@ -19,11 +19,14 @@ class HomepageApp extends React.Component {
     this.handleEntryClick = this.handleEntryClick.bind(this);
   }
 
-  isPlanningEvent(event) {
+  isPlanningFeaturedEvent() {
     var planList = this.state.planningList;
 
     for (var i = 0; i < planList.length; i++) {
-      if (planList[i].name === event.name) {
+      // should be id based, 
+      // name-based can have security issues
+      // i.e create the same event with the same name
+      if (planList[i].name === this.state.featuredEvent.name) {
         return true;
       }
     }
@@ -73,7 +76,10 @@ class HomepageApp extends React.Component {
           />;
         </div>);
     } else if (this.state.page === 'eventDetails') {
-      view = <EventPlanning featuredEvent={this.state.featuredEvent}/>;
+      view = <EventPlanning 
+                featuredEvent={this.state.featuredEvent} 
+                isPlanning={this.isPlanningFeaturedEvent()}
+             />;
     }
 
     return (
