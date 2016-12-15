@@ -65,6 +65,7 @@ module.exports = function(app){
 
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.SELECT})
     .then(function(events) {
+      console.log('EVENTS FROM SERVER', events);
       res.end(JSON.stringify(events));
     })
     .catch(function(error) {

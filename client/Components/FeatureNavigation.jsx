@@ -5,6 +5,7 @@ import Radium from 'radium';
 
 let RadiumLink = Radium(Link);
 class FeatureNavigation extends React.Component {
+
   render() {
   var styles = {
     bmBurgerButton: {
