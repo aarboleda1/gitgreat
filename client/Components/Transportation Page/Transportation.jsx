@@ -5,12 +5,26 @@ class Transportation extends React.Component {
     this.currentProps = this.props.propsToTransportation;
 
     this.state = {
-      cars: [{
-        driver: 'CoolPerson',
-        seats: 4,
-        riders: ['Anton', 'Adam']
-      }]
+      cars: [
+        {
+          driver: 'CoolPerson',
+          seats: 4,
+          riders: ['Anton', 'Adam']
+        },
+        {
+          driver: 'AnotherPerson',
+          seats: 4,
+          riders: ['A', 'B']
+        }
+      ]
     };
+  }
+
+  handleRideWith(car) {
+    car.riders.push(this.currentProps.username);
+
+    // Rerenders after pushing to array
+    this.forceUpdate();
   }
 
   render() {
@@ -39,6 +53,7 @@ class Transportation extends React.Component {
           {this.state.cars.map( (car) => (
             <div className="col s4">
               <h5>{car.driver}'s Car</h5>
+              <button onClick={this.handleRideWith.bind(this, car)}>Ride With</button>
               <p>Number of Seats: {car.seats}</p>
               <p>Current riders: {car.riders.map( (rider) => (<p>{rider}</p>))}</p>
             </div>
