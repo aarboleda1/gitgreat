@@ -7,6 +7,7 @@ const db = require('../db');
 
 const app = express();
 app.use(parser.json());
+app.use(parser.urlencoded({ extended: false }));
 
 //Webpack 
 const webpackDevMiddleware = require('webpack-dev-middleware');

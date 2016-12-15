@@ -15,22 +15,30 @@ module.exports = function(app){
     res.redirect('/createEvent.html');
   });
 
-  // needs a User,
-  // go to events-attendee table, get all events where 
-  // user -> userid -> eventid(s) -> events
-  // user | event
-  app.get('/eventTable', function(req, res, next) {
-    dbModels.Event.findAll({order: [['when', 'DESC']]})
-    .then(function(events) {
-      utils.sendResponse(res, 200, 'application/json', events);
-    });
+  // post new user
+  app.post('/user', function(req, res, next) {
+    dbModels.User
+    .create({
+      accountName: req.body.accountName,
+      displayName: req.body.displayName,
+      phoneNumber: req.body.phoneNumber,
+      pw: req.body.pw
+    })
+    .then(function(user) {
+      res.redirect('/')
+    })
+    .catch(function(error) {
+      console.log('Error in posting user to server', error);
+      next(error);
+    })
   });
 
-  // needs a user
-  app.post('/eventTable', function(req, res, next) {
+  // post an event to table
+  app.post('/event', function(req, res, next) {
     dbModels.Event
     .create({
       name: req.body.name,
+      description: req.body.description,
       where: req.body.where,
       when: req.body.when
     })
@@ -39,6 +47,103 @@ module.exports = function(app){
     })
     .catch(function(err) {
       console.log('Error: ', err);
+      next(error);
+    });
+  });
+
+  // For a given user, get all their attending events
+  app.get('/attendingEvents', function(req, res, next) {
+    var accountName = '"' + req.query.accountName + '"';
+
+    // raw mysql query syntax
+    var queryString ='SELECT \
+                        e.name, \
+                        e.description, \
+                        e.where, \
+                        e.when \
+                      FROM users as attendee \
+                        INNER JOIN eventattendee as ea ON (attendee.id = ea.userId) \
+                        INNER JOIN events as e ON (ea.eventId = e.id) \
+                      WHERE attendee.accountName = ';
+    queryString = queryString.concat(accountName);
+
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.SELECT})
+    .then(function(events) {
+      res.end(JSON.stringify(events));
+    })
+    .catch(function(error) {
+      console.log('serverside error in GET /eventTable');
+      next(error);
+    })
+  });
+
+  // add a user as an 'attendee' to an event
+  app.post('/attendingEvents', function(req, res, next) {
+    var accountName = '"' + req.body.accountName + '"';
+    var eventName = '"' + req.body.eventName + '"';
+    var queryString ='INSERT INTO eventattendee (eventId, userId) \
+                      SELECT \
+                        user.id, event.id \
+                      FROM users AS user \
+                      INNER JOIN events AS event \
+                        ON user.accountName = ' + accountName +
+                      ' AND event.name = ' + eventName;
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
+    .then(function(success) {
+      console.log('POST successful');
+      res.end(JSON.stringify(success));
+    })
+    .catch(function(error) {
+      console.log('POST Error', error);
+      next(error);
+    });
+  })
+
+  // For a given user, get all their planning events
+  app.get('/planningEvents', function(req, res, next) {
+    var accountName = '"' + req.query.accountName + '"';
+
+    // raw mysql query syntax
+    var queryString ='SELECT \
+                        e.name, \
+                        e.description, \
+                        e.where, \
+                        e.when \
+                      FROM users as planner \
+                        INNER JOIN EventPlanner as ea ON (planner.id = ea.userId) \
+                        INNER JOIN events as e ON (ea.eventId = e.id) \
+                      WHERE planner.accountName = ';
+    queryString = queryString.concat(accountName);
+
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.SELECT})
+    .then(function(events) {
+      res.end(JSON.stringify(events));
+    })
+    .catch(function(error) {
+      console.log('serverside error in GET /eventTable');
+      next(error);
+    })
+  });
+
+  // add a user as a 'planner' for an event
+  app.post('/planningEvents', function(req, res, next) {
+    var accountName = '"' + req.body.accountName + '"';
+    var eventName = '"' + req.body.eventName + '"';
+    var queryString ='INSERT INTO eventattendee (eventId, userId) \
+                      SELECT \
+                        user.id, event.id \
+                      FROM users AS user \
+                      INNER JOIN events AS event \
+                        ON user.accountName = ' + accountName +
+                      ' AND event.name = ' + eventName;
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
+    .then(function(success) {
+      console.log('POST successful');
+      res.end(JSON.stringify(success));
+    })
+    .catch(function(error) {
+      console.log('POST Error', error);
+      next(error);
     });
   });
 
@@ -105,39 +210,4 @@ module.exports = function(app){
       });
     });
   });
-
-  // will not be using below
-  // app.get('/displayImages', function(req, res) {
-  //   console.log('hits displayimages in server');
-  //   dbModels.Photos.findAll()
-  //   .then(function(data) {
-  //     for(var pair in data.entries()) {
-  //       console.log(pair);
-  //     }
-  //     res.send(data);
-  //   });
-  // });
-
-  // app.post('/uploadImage', function(req, res) {
-  //   console.log('hits uploadImage in server');
-  //   var form = new multiparty.Form();
-  //   form.parse(req, function(err, fields, files) {
-  //     console.log('fields: ', fields);
-  //     console.log('files: ', files);
-  //     console.log('file:', files.imageFile[0].path);
-
-  //     cloudinary.uploader.upload(files.imageFile[0].path, function(result) {
-  //       console.log('cloudinary resulttt: ', result);
-  //       dbModels.Photos.create({url: result.url})
-  //       .then(function(event) {
-  //         console.log('successfully added url to db!!!');
-  //       })
-  //       .catch(function(err) {
-  //         console.log('photosTable db entry error: ', err);
-  //       });
-  //     });
-
-  //   });
-  //   res.send();
-  // });
 }

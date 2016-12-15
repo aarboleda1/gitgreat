@@ -78,13 +78,24 @@ ItemList.belongsTo(Event);
 // one reminder : one event
 Reminder.belongsTo(Event);
 
+// initial setup to remove timestamps join tables (sequelize on-default adds)
+var EventAttendee = sequelize.define('eventattendee', {
+}, {
+  timestamps: false
+});
+
+var EventPlanner = sequelize.define('eventplanner', {
+}, {
+  timestamps: false
+});
+
 // many events : many attendees join table
-Event.belongsToMany(User, {through: 'EventAttendee'});
-User.belongsToMany(Event, {through: 'EventAttendee'});
+Event.belongsToMany(User, {through: EventAttendee});
+User.belongsToMany(Event, {through: EventAttendee});
 
 // many events : many planners join table
-Event.belongsToMany(User, {through: 'EventPlanner'});
-User.belongsToMany(Event, {through: 'EventPlanner'});
+Event.belongsToMany(User, {through: EventPlanner});
+User.belongsToMany(Event, {through: EventPlanner});
 
 sequelize
 .authenticate()
@@ -106,3 +117,5 @@ module.exports.Event = Event;
 module.exports.ItemList = ItemList;    
 module.exports.Reminder = Reminder;
 module.exports.Photos = Photos;
+
+module.exports.sequelize = sequelize;
