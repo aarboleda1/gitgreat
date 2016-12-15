@@ -21,6 +21,7 @@ class EventPlanning extends React.Component {
   }
   
   changeDisplay(e) {
+    console.log('dont click')
     console.log(e.target.className);
     this.setState({
       tab: e.target.className
@@ -33,7 +34,7 @@ class EventPlanning extends React.Component {
   }
 
   closeNav() {
-    console.log('CLICKED')
+    console.log('NAV BAR CLICKED')
     document.getElementById("slide-out").style.width = "0";
   }
 

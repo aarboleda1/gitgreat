@@ -6,11 +6,12 @@ import { Link } from 'react-router'
 
 var Nav = () => (
   <div className="nav">
-  	<a href='/' className="title">Friends</a>
-    <a href='/'>Home </a>
+  	<a href='/' className="title"><Link to="/">Friends</Link></a>
+    <a href='/'><Link to="/">Home</Link> </a>
     <a><Link to="/create">Create Event</Link></a>
     <a href='#'>Log In</a>
   </div>
 );
 
 export default Nav;
+
