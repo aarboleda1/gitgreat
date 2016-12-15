@@ -3,7 +3,6 @@
 import React from 'react';
 
 var FeatureNavigation = (props) => (
-  // var sidebarClass = this.props.isOpen ? 'sidebar open' : 'sidebar';
   <div className="mySidenav">
   <ul id="slide-out" className="side-nav" onClick={() => props.closeNav()}>
     <li><a href='#' className="wtbBtn" id="firstBtn" value="whatToBringBtn" onClick={(e) => props.changeDisplay(e)}>What To Bring</a></li>

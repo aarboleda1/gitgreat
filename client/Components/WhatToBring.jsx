@@ -1,6 +1,7 @@
 //Child component within the Event Planning component
 //Allows users to create a list of items that need to be brought to an event;
 import React from 'react';
+import $ from 'jquery';
 
 class WhatToBring extends React.Component {
   constructor(props) {

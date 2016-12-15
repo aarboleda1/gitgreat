@@ -4,7 +4,8 @@ import React from 'react';
 import EventList from './EventList.jsx';
 import EventPlanning from './EventPlanning.jsx';
 import Nav from './nav.jsx';
-import $ from 'jquery'
+import $ from 'jquery';
+
 
 class HomepageApp extends React.Component {
   constructor(props) {

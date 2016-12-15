@@ -2,11 +2,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import HomepageApp from './Components/HomepageApp.jsx';
-import CreateEventApp from './Components/CreateEventApp.jsx'
+import CreateEventApp from './Components/CreateEventApp.jsx';
+import { Router, Route, hashHistory } from 'react-router';
 
-ReactDOM.render(
-  <CreateEventApp />, 
-  document.getElementById('CreateEventApp') 
-);
+
+
+ReactDOM.render((
+  <Router history={hashHistory}>
+    <Route path="/" component={HomepageApp}/>
+    <Route path="/create" component={CreateEventApp}/>
+  </Router>
+),document.getElementById('app'));
 
 
