@@ -17,7 +17,7 @@ import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 ReactDOM.render((
   <Router history={hashHistory}>
-    <Route path="/" component={HomepageApp}/>
+    <Route path="/" accountName={"Dummy"} component={HomepageApp}/>
       <Route path="/home" component={Details}/>
       <Route path="/wtb" component={WhatToBring}/>
       <Route path="/reminders" component={Reminders}/>
@@ -25,6 +25,6 @@ ReactDOM.render((
       <Route path="/featnav" component={FeatureNavigation}/>
       <Route path="/eventlist" component={EventList}/>
       <Route path="/eventPlanning" component={EventPlanning}/>
-      <Route path="/create" component={CreateEventApp}/>
+      <Route path="/create" accountName={"Dummy"} component={CreateEventApp}/>
   </Router>
 ), document.getElementById('app'));

@@ -38,6 +38,7 @@ class CreateEventApp extends React.Component {
       $('#msg').text('event successfully posted');
       // REDIRECT TO HOMEPAGEAPP ?
     };
+    console.log(this.props.route.accountName, 'props.route 41 account');
     // post event to event table
     $.ajax({
       method: 'POST',
@@ -53,9 +54,11 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.accountName
+              accountName: this.props.route.accountName
             }),
-      success: function() {
+      success: function(data) {
+        console.log(data);
+
         console.log('successful post to attendingevents');
       }
     })
@@ -66,9 +69,10 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.accountName
+              accountName: this.props.route.accountName
             }),
-      success: function() {
+      success: function(data) {
+        console.log(data);
         console.log('successful post to planningevents');
       }
     })

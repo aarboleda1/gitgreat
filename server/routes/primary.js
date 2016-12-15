@@ -80,7 +80,7 @@ module.exports = function(app){
     var eventName = '"' + req.body.eventName + '"';
     var queryString ='INSERT INTO eventattendees (eventId, userId) \
                       SELECT \
-                        user.id, event.id \
+                        event.id, user.id \
                       FROM users AS user \
                       INNER JOIN events AS event \
                         ON user.accountName = ' + accountName +
@@ -128,7 +128,7 @@ module.exports = function(app){
     var eventName = '"' + req.body.eventName + '"';
     var queryString ='INSERT INTO eventplanners (eventId, userId) \
                       SELECT \
-                        user.id, event.id \
+                        event.id, user.id \
                       FROM users AS user \
                       INNER JOIN events AS event \
                         ON user.accountName = ' + accountName +

@@ -15,7 +15,7 @@ class EventList extends React.Component {
     //This function will sort the events in the eventList into two categories: upcoming and deleted
     //The sort logic compares the event date with the current date and checks to see if the event 
     //has already passed.
-    console.log(nextProps);
+    console.log(nextProps, 'NEXTPROPS');
     if (nextProps.eventData) {
       var upcoming = [];
       var completed = [];
