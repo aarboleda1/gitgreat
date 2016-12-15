@@ -44,6 +44,7 @@ class FeatureNavigation extends React.Component {
     return (
       <Menu
         className="side-nav"
+        width={ 225 }
       >
         <RadiumLink className="home" to="/home">Home</RadiumLink>
         <RadiumLink className="wtb" to="/wtb">What To Bring</RadiumLink>

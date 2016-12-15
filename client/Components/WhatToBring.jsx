@@ -80,9 +80,9 @@ class WhatToBring extends React.Component {
   render() {
     return (
     <div className="what-to-bring-wrapper">  
-      <div className="nav-container">
-        <Nav/>
-      </div>
+        <div id="outer-container" styles={{height: '100%'}}>
+          <FeatureNavigation />
+        </div>
       <div>
         <FeatureNavigation pageWrapId={ "page-wrap" }/>
       </div>
