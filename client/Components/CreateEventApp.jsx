@@ -1,5 +1,10 @@
 //Parent App within createEvent.html
 //Allows users to create new events
+import React from 'react';
+import Nav from './nav.jsx';
+import $ from 'jquery';
+
+
 class CreateEventApp extends React.Component {
   constructor(props) {
     super(props);
@@ -72,4 +77,4 @@ class CreateEventApp extends React.Component {
   }
 }
 
-window.CreateEventApp = CreateEventApp;
+export default CreateEventApp;

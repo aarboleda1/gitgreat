@@ -1,5 +1,11 @@
 //Child component within the Event Planning component
 //Allows users to create a list of items that need to be brought to an event;
+import React from 'react';
+import $ from 'jquery';
+import FeatureNavigation from './FeatureNavigation.jsx';
+import Nav from './nav.jsx';
+
+
 class WhatToBring extends React.Component {
   constructor(props) {
     super(props);
@@ -74,7 +80,8 @@ class WhatToBring extends React.Component {
   render() {
     return (
       <div>
-        <h3>Reminder</h3>
+        <Nav/>
+        <h2>What To Bring</h2>
         <form className="bringForm" onSubmit={this.handleSubmit}>
           <label>
             Owner:
@@ -114,7 +121,12 @@ class WhatToBring extends React.Component {
             )}
           </tbody>
         </table>
+        <div>
+          <FeatureNavigation pageWrapId={ "page-wrap" }/>
+        </div>
       </div>
     );
   }
 }
+
+export default WhatToBring;

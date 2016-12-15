@@ -1,5 +1,9 @@
-//Renders the HomepageApp component on homepage.html
-ReactDOM.render(
-  <App />, 
-  document.getElementById('HomepageApp') 
-);
+// //Renders the HomepageApp component on homepage.html
+// import React from 'react';
+// import ReactDOM from 'react-dom';
+// import HomepageApp from './Components/HomepageApp.jsx';
+
+// ReactDOM.render(
+//   <HomepageApp />, 
+//   document.getElementById('HomepageApp') 
+// );

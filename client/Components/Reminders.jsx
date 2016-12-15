@@ -1,5 +1,10 @@
 //Child component within the Event Planning component
 //Allows users to send a reminder for purposes of event planning
+import React from 'react';
+import $ from 'jquery';
+import FeatureNavigation from './FeatureNavigation.jsx'
+import Nav from './nav.jsx';
+
 class Reminders extends React.Component {
   constructor(props) {
     super(props);
@@ -22,7 +27,7 @@ class Reminders extends React.Component {
   fetchReminders() {
     //The event name is passed along to the server via query parameters 
     //so that we can display reminders associated with a specific event.
-    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    // var eventParam = this.props.featuredEvent.name.split(' ').join('_');
     var successHandler = function(data) {
       this.setState({reminders: data});
     };
@@ -63,7 +68,11 @@ class Reminders extends React.Component {
   render() {
     return (
       <div className="bringForm">
-        <h2>Reminder</h2>
+        <Nav/>
+        <h3>Reminder</h3>
+        <div className="side-nav-reminders">
+          <FeatureNavigation pageWrapId={ "page-wrap" } styles={this.props.styles}/>
+        </div>
         <form onSubmit={this.handleReminderSubmit}>
           <label>
             Phone Number:
@@ -105,9 +114,10 @@ class Reminders extends React.Component {
             )}
           </tbody>
         </table>
+
       </div>
     );
   }
 }
 
-window.Reminders = Reminders;
+export default Reminders;

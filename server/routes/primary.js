@@ -7,7 +7,7 @@ cloudinary.config(cloudinaryConfig.info);
 
 module.exports = function(app){
   app.get('/', function(req, res, next) {
-    res.redirect('/homepage.html');
+    res.redirect('/index.html');
   });
 
   app.get('/create', function(req, res, next) {
