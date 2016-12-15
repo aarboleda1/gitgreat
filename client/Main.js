@@ -14,6 +14,7 @@ import EventPlanning from './Components/EventPlanning.jsx';
 import PickADate from './Components/PickADatePage/PickADate.jsx';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
+import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 ReactDOM.render((
   <Router history={browserHistory}>
