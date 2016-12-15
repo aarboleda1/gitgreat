@@ -5,6 +5,7 @@ class Transportation extends React.Component {
     this.currentProps = this.props.propsToTransportation;
 
     this.state = {
+      value: '',
       cars: [
         {
           driver: 'CoolPerson',
@@ -18,13 +19,41 @@ class Transportation extends React.Component {
         }
       ]
     };
+
+    this.handleRideWith = this.handleRideWith.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleChange = this.handleChange.bind(this);
   }
 
   handleRideWith(car) {
-    car.riders.push(this.currentProps.username);
+    if (car.riders.length < car.seats) {
+      car.riders.push(this.currentProps.username);
+    } else {
+      alert('This car is full!');
+    }
 
     // Rerenders after pushing to array
     this.forceUpdate();
+  }
+
+  handleSubmit(e) {
+    var newCarArray = this.state.cars;
+    var newCar = {
+      driver: this.currentProps.username,
+      seats: this.state.value,
+      riders: []
+    };
+    newCarArray.push(newCar);
+
+    this.setState({
+      value: '',
+      cars: newCarArray
+    });
+
+  }
+
+  handleChange(e) {
+    this.setState({value: e.target.value});
   }
 
   render() {
@@ -44,8 +73,9 @@ class Transportation extends React.Component {
 
         <div className="volunteer-form row">
           <h3>Rides</h3>
-          <form>
-            <button>Volunteer as a driver!</button>
+          <form onSubmit={this.handleSubmit}>
+            <input type="text" onChange={this.handleChange} style={{'width': '250px'}} placeholder="Number of seats you have" />
+            <input type="submit" value="Volunteer your ride!" />
           </form>
         </div>
 
