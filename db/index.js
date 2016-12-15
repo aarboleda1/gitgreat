@@ -118,7 +118,7 @@ sequelize
 sequelize.sync({
   // Drop tables on server restart 
   // (change to false after development)
-  force: true
+  force: false
 });
 
 module.exports.User = User;

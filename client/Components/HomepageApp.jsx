@@ -39,21 +39,20 @@ class HomepageApp extends React.Component {
     //which gets passed as a prop into the Eventlist component
     var attendingEventsHandler = function(data) {
       console.log(data, 'data inside attendingEvents')
-      this.setState({eventList: data});
+      this.setState({eventList: JSON.parse(data)});
     };
     var planningEventsHandler = function(data) {
-      this.setState({planningList: data});
+      this.setState({planningList: JSON.parse(data)});
     };
     $.ajax({
       method: 'GET',
-      url: '/attendingEvents?accountName=' + this.props.accountName,
+      url: '/attendingEvents?accountName=' + this.props.route.accountName,
       success: attendingEventsHandler.bind(this)
     });
     $.ajax({
       method: 'GET',
-      url: '/planningEvents?accountName=' + this.props.accountName,
+      url: '/planningEvents?accountName=' + this.props.route.accountName,
       success: planningEventsHandler.bind(this)
-
     });
   }
 
@@ -87,8 +86,10 @@ class HomepageApp extends React.Component {
     return (
         <div>
           <Nav />
-          <EventList />
-          {this.props.children}
+          <EventList 
+            eventData={this.state.eventList}
+            handleEntryClick={this.handleEntryClick}
+          />
         </div>
     );
   }
