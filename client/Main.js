@@ -27,6 +27,4 @@ ReactDOM.render((
       <Route path="/eventPlanning" component={EventPlanning}/>
       <Route path="/create" component={CreateEventApp}/>
   </Router>
-),document.getElementById('app'))
-
-
+), document.getElementById('app'));
