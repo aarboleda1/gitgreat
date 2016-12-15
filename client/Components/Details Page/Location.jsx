@@ -1,3 +1,6 @@
+import React from 'react';
+import $ from 'jquery';
+
 // Needed props: Location name, address, isPlanner
 class Location extends React.Component {
   constructor(props) {
@@ -80,4 +83,4 @@ class Location extends React.Component {
   }
 }
 
-window.Location = Location;
+export default Location;

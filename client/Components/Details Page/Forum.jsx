@@ -1,3 +1,6 @@
+import React from 'react';
+import $ from 'jquery';
+
 // Needed props: Username
 class Forum extends React.Component {
   constructor(props) {
@@ -82,4 +85,4 @@ class Forum extends React.Component {
   }
 }
 
-window.Forum = Forum;
+export default Forum;

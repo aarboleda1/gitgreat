@@ -1,3 +1,6 @@
+import React from 'react';
+import $ from 'jquery';
+
 // Needed props: Event name, event description, isPlanner
 class Description extends React.Component {
   constructor(props) {
@@ -71,4 +74,4 @@ class Description extends React.Component {
   }
 }
 
-window.Description = Description;
+export default Description;

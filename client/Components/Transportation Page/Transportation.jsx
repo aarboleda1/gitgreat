@@ -1,3 +1,5 @@
+import $ from 'jquery';
+
 // Location, address, and username needs to be passed down
 class Transportation extends React.Component {
   constructor(props) {

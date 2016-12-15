@@ -6,6 +6,7 @@ import CreateEventApp from './Components/CreateEventApp.jsx';
 import WhatToBring from './Components/WhatToBring.jsx';
 import Reminders from './Components/Reminders.jsx';
 import FeatureNavigation from './Components/FeatureNavigation.jsx';
+import Details from './Components/Details Page/Details.jsx'
 import { Router, Route, hashHistory } from 'react-router';
 
 
@@ -14,6 +15,7 @@ ReactDOM.render((
   <Router history={hashHistory}>
     <Route path="/" component={HomepageApp}/>
       <Route path="/create" component={CreateEventApp}/>
+      <Route path="/home" component={Details}/>
       <Route path="/wtb" component={WhatToBring}/>
       <Route path="/reminders" component={Reminders}/>
       <Route path="/featnav" component={FeatureNavigation}/>

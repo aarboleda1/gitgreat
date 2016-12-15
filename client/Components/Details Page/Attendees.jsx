@@ -1,3 +1,6 @@
+import React from 'react';
+import $ from 'jquery';
+
 // Needed props: isPlanner
 class Attendees extends React.Component {
   constructor(props) {
@@ -91,4 +94,4 @@ class Attendees extends React.Component {
   }
 }
 
-window.Attendees = Attendees;
+export default Attendees;
