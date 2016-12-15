@@ -12,6 +12,7 @@ class CreateEventApp extends React.Component {
       name: '',
       when: '',
       where: ''
+      // newEvent: {}
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -34,7 +35,9 @@ class CreateEventApp extends React.Component {
     //the eventTable
     var successHandler = function() {
       $('#msg').text('event successfully posted');
+      // REDIRECT TO HOMEPAGEAPP ?
     };
+    // post event to event table
     $.ajax({
       method: 'POST',
       url: '/event',
@@ -42,6 +45,32 @@ class CreateEventApp extends React.Component {
       data: JSON.stringify(this.state),
       success: successHandler.bind(this)
     });
+    // post user as an attendee (join table insert)
+    $.ajax({
+      method: 'POST',
+      url: '/attendingEvents',
+      contentType: 'application/json',
+      data: JSON.stringify({
+              eventName: this.state.name,
+              accountName: this.props.accountName
+            }),
+      success: function() {
+        console.log('successful post to attendingevents');
+      }
+    })
+    // post user as a planner (join table insert)
+    $.ajax({
+      method: 'POST',
+      url: '/planningEvents',
+      contentType: 'application/json',
+      data: JSON.stringify({
+              eventName: this.state.name,
+              accountName: this.props.accountName
+            }),
+      success: function() {
+        console.log('successful post to planningevents');
+      }
+    })
     event.preventDefault();
   } 
   render() {
