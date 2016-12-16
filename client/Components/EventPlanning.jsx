@@ -101,9 +101,6 @@ class EventPlanning extends React.Component {
 
     return (
       <div>
-        <div id="outer-container" styles={{height: '100%'}}>
-          <FeatureNavigation />
-        </div>
         <Details propsToDetails={propsToDetails} />
       </div>    
     );

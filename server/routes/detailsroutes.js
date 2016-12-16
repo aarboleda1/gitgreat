@@ -31,7 +31,7 @@ module.exports = function(app) {
     });
   });
 
-  // Route for updating messages
+  // Route for updating messages - need to create with one in the database if none are there
   app.put('/forummessages', function(req, res) {
     var eventName = req.body.eventName;
     var newMessagesArrayString = JSON.stringify(req.body.messages);

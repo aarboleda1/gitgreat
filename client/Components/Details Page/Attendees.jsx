@@ -72,9 +72,9 @@ class Attendees extends React.Component {
     if (this.currentProps.isPlanner) {
       view = (
         <div className="attendees-box">
-          <h3>Who's Attending <img onClick={this.handleClickAdd} src="../assets/green.png" style={{width: '35px'}} /></h3>
+          <h3>Who's Attending <img onClick={this.handleClickAdd} src="http://www.verdemartin.com/wp-content/uploads/2015/06/plus-button-green.png" style={{width: '35px'}} /></h3>
           <div>
-            {this.state.attendees.map( (attendee) => (<div>{attendee} <img src="../assets/red.png" 
+            {this.state.attendees.map( (attendee) => (<div>{attendee} <img src="http://www.clker.com/cliparts/f/5/f/0/1349803480867294890Close%20Button.svg.med.png" 
               onClick={this.handleClickRemove.bind(attendee)} className={attendee} style={{width: '15px'}} /></div>) ) }
           </div>
         </div>

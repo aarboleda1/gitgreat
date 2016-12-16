@@ -24,6 +24,11 @@ var propsToDetails = {
   eventName: 'testname'
 };
 
+var propsToTransportation = {
+  username: 'Nick',
+  eventLocation: '944 Market Street'
+};
+
 ReactDOM.render((
   <Router history={browserHistory}>
     <Route path="/" component={App}/>
@@ -31,11 +36,14 @@ ReactDOM.render((
       <Route path="/home" component={Details}/>
       <Route path="/wtb" component={WhatToBring}/>
       <Route path="/reminders" component={Reminders}/>
-      <Route path="/transportation" component={Transportation}/>
       <Route path="/featnav" component={FeatureNavigation}/>
       <Route path="/eventlist" component={EventList}/>
       <Route path="/eventPlanning" component={EventPlanning}/>
       <Route path="/create" component={CreateEventApp}/>
+<<<<<<< HEAD
       <Route path="/pickADate" component={PickADate}/>
+=======
+      <Route path="/transportation" propsToTransportation={propsToTransportation} component={Transportation}/>
+>>>>>>> Refactor transportation for webpack
   </Router>
 ), document.getElementById('app'));

@@ -43,7 +43,7 @@ class Location extends React.Component {
     if (this.currentProps.isPlanner) {
       view = (
         <div className="location-box">
-          <h3>Where: {this.state.eventLocation} <img onClick={this.handleLocationEdit} style={{'width': '35px'}} src="../assets/edit.png" /></h3>
+          <h3>Where: {this.state.eventLocation} <img onClick={this.handleLocationEdit} style={{'width': '35px'}} src="http://www.iconsfind.com/wp-content/uploads/2013/11/Editing-Edit-icon.png" /></h3>
           <div>
             <iframe
               width="400" height="250" frameBorder="0" style={{border: 0}}

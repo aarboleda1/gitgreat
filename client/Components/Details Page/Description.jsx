@@ -25,7 +25,7 @@ class Description extends React.Component {
       eventName: newEventName
     });
 
-    putData = {
+    var putData = {
       original: this.currentProps.eventName,
       new: newEventName
     };
@@ -63,9 +63,9 @@ class Description extends React.Component {
     if (this.currentProps.isPlanner) {
       view = (
         <div className="description-box">
-          <h2>{this.state.eventName} <img onClick={this.handleNameEdit} style={{'width': '45px'}} src="../assets/edit.png" /></h2>
+          <h2>{this.state.eventName} <img onClick={this.handleNameEdit} style={{'width': '45px'}} src="http://www.iconsfind.com/wp-content/uploads/2013/11/Editing-Edit-icon.png" /></h2>
           <div >
-            {this.state.eventDescription} <img onClick={this.handleDescriptionEdit} style={{'width': '15px'}} src="../assets/edit.png" />
+            {this.state.eventDescription} <img onClick={this.handleDescriptionEdit} style={{'width': '15px'}} src="http://www.iconsfind.com/wp-content/uploads/2013/11/Editing-Edit-icon.png" />
           </div>
         </div>
       );
