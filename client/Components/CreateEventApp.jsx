@@ -1,7 +1,7 @@
 //Parent App within createEvent.html
 //Allows users to create new events
 import React from 'react';
-import Nav from './nav.jsx';
+// import Nav from './nav.jsx';
 import $ from 'jquery';
 
 
@@ -36,9 +36,11 @@ class CreateEventApp extends React.Component {
     //the eventTable
     var successHandler = function() {
       $('#msg').text('event successfully posted');
+      this.props.updateEvents();
+      this.props.changePage('events');
       // REDIRECT TO HOMEPAGEAPP ?
     };
-    console.log(this.props.route.accountName, 'props.route 41 account');
+
     // post event to event table
     $.ajax({
       method: 'POST',
@@ -54,7 +56,7 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.route.accountName
+              accountName: this.props.accountName
             }),
       success: function(data) {
         console.log(data);
@@ -69,7 +71,7 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.route.accountName
+              accountName: this.props.accountName
             }),
       success: function(data) {
         console.log(data);
@@ -81,7 +83,6 @@ class CreateEventApp extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className="featureBody" id="createEvent">
           <form onSubmit={this.handleEventSubmit}>
             <p><label>
