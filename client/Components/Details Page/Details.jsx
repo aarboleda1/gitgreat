@@ -36,7 +36,7 @@ class Details extends React.Component {
 
     return (
       <div>
-
+      
         <div className="nav-container">
           <Nav/>
         </div>
