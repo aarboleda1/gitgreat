@@ -9,46 +9,81 @@ import DateList from './DateList.jsx';
 
 
 class PickADate extends React.Component {
-  constructor () {
-    super()
+  constructor (props) {
+    super(props)
     this.state = {
-      dateList: [1,2,3],
+      dates: [],
       date: null
     }
     this.getDateInfo = this.getDateInfo.bind(this);
+    this.updateList = this.updateList.bind(this);
+    this.handleDateClick = this.handleDateClick.bind(this);
   }
 
   updateList (date) {
-    var date = {date: date  }
-    var dateList = this.state.dateList.push(date);
-    return dateList
+    // var date = {date: date }
+    this.state.dates.push(date);
+    var newList = this.state.dates;
+    this.setState({
+      dates: newList
+    })
   }
 
   getDateInfo (dateInfo) {
     var date = dateInfo.date();
     var month = dateInfo.month();
     var year = dateInfo.year();
-    var completeDate = month + '/' + date + '/' + year;
+    var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
+    console.log(time);
+    var completeDate = month + '/' + date + '/' + year + ' ' + time;
     var updatedList = this.updateList(completeDate);
     this.setState({
-      dateList: updatedList,
       date: completeDate      
     })
   }
+
+  handleDateClick () {
+    console.log('clicked')
+  }
+
   render () {
+    const listStyle = {
+      'display': 'flex',
+      'flexDirection': 'row',
+      'justifyContent': 'center',
+    }
+    const titleStyle = {
+      'display': 'flex',
+      'flexDirection': 'row',
+      'justifyContent': 'center'
+    }
     return (
       <div className="pick-a-date-container">
-        <div id="outer-container" styles={{height: '100%'}}>
+        <div className="nav-container">
+          <Nav/>
+        </div>
+        <div style={ titleStyle }>
+          <h4>Choose a Time and Date For This Event!</h4>
+        </div>
+        <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
           <FeatureNavigation />
         </div>
-        <Nav/>
-        <Calendar 
-          onSelect={ (info) => this.getDateInfo(info) }
-          showDateInput={ false }
-          showToday={ false }
-        />
-        <div className="date-list-container">
-          <DateList dateList={ this.state.dateList }/>
+        <div id="calendar-container">
+          <Calendar 
+            onSelect={ (info) => this.getDateInfo(info) }
+            showToday={ false }
+            showDateInput={ false }
+          />
+        </div>
+        <div 
+          style={ listStyle }
+          className="date-list-container"
+        >
+        <strong>Most Popular Dates for this Event</strong>
+          <DateList             
+            dates={ this.state.dates }
+            handleDateClick={ () => this.handleDateClick }
+          />
         </div>
       </div>
     ) 

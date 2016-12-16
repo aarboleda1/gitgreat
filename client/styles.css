@@ -225,3 +225,21 @@ nav a {
 }
 
 
+/* * * * * * * * * *
+ *                 *
+ *  DateList       *
+ *                 *
+ * * * * * * * * * */
+
+.date-list {
+    display: flex;
+    justify-content: center;
+}
+
+.date-list-entry {
+  color: #fff;
+  padding: 1vh;
+  margin: 5px;
+  background-color: #5A83D3;
+}
+

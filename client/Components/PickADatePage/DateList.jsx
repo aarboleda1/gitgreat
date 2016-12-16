@@ -1,15 +1,19 @@
 import React from 'react';
 import DateListEntry from './DateListEntry.jsx';
 
-const DateList = (props) => {
-  
-  
+const DateList = ({dates, handleDateClick}) => {  
   return (
-    <div>
-
-      {props.dateList.map((date, index) => {
+    <div className="date-list">
+      <strong>
+        Your Times
+      </strong>
+      {dates.map((date, index) => {
         return (
-          <DateListEntry key={index} date={date}/>
+          <DateListEntry 
+            key={index} 
+            date={date}
+            handleDateClick={handleDateClick}
+          />
         )
       })}  
     </div>
