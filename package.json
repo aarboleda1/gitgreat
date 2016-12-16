@@ -46,6 +46,7 @@
     "sqlite": "^2.2.3",
     "sqlite3": "^3.1.8",
     "style-loader": "^0.13.1",
+    "svg-react-loader": "^0.3.7",
     "textbelt": "0.0.3",
     "twilio": "^2.11.1",
     "webpack": "^1.14.0",
