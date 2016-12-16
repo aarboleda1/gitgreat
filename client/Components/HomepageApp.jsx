@@ -57,6 +57,7 @@ class HomepageApp extends React.Component {
   }
 
   handleEntryClick(event) {
+    console.log(event, 'event');
     this.setState({
       page: 'eventDetails',
       featuredEvent: event
@@ -86,10 +87,8 @@ class HomepageApp extends React.Component {
     return (
         <div>
           <Nav />
-          <EventList 
-            eventData={this.state.eventList}
-            handleEntryClick={this.handleEntryClick}
-          />
+          {view}
+
         </div>
     );
   }

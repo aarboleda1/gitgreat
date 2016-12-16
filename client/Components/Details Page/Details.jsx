@@ -11,7 +11,7 @@ class Details extends React.Component {
 
   render() {
     var currentProps = this.props.propsToDetails;
-
+    
     var propsToDescription = {
       eventName: currentProps.eventName,
       eventDescription: currentProps.eventDescription,
