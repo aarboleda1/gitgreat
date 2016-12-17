@@ -30,16 +30,16 @@ class EventPlanning extends React.Component {
     var view;
     
     var propsToDetails = {
-      username: 'Nick',
-      isPlanner: true,
-      eventDescription: 'Party time at Hack Reactor',
-      eventLocation: 'aaa',
-      eventName: this.props.featuredEvent.name
+      username: this.props.accountName,
+      isPlanner: this.props.isPlanning,
+      eventName: this.props.featuredEvent.name,
+      eventDescription: this.props.featuredEvent.description,
+      eventLocation: this.props.featuredEvent.where
     };
 
     var propsToTransportation = {
-      username: 'Nick',
-      eventLocation: '944 Market Street'
+      username: this.props.accountName,
+      eventLocation: this.props.featuredEvent.where
     };
 
     var view = <Details propsToDetails={propsToDetails} />;

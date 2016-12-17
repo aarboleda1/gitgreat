@@ -9,6 +9,7 @@ import Nav from '../Nav.jsx';
 class Details extends React.Component {
   constructor(props) {
     super(props);
+    console.log(this.props);
   }
 
   render() {

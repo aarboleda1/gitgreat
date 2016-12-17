@@ -45,7 +45,7 @@ class Description extends React.Component {
       eventDescription: newEventDescription
     });
 
-    putData = {
+    var putData = {
       original: this.currentProps.eventName,
       new: newEventDescription
     };
