@@ -8,13 +8,19 @@ class DateListEntry extends React.Component {
       votes: 1,
       hasVoted: false
     } 
+    console.log(this.props,' FEATREUD');
   }
   // Allows users to vote for a time 
   increaseVote () {
-      this.sendToDB({
-        date: this.props.dateInfo,
-        votes: this.state.votes 
-      })
+    // everytime a user updates a date, send it to DB 
+    this.sendToDB({
+      date: this.props.dateInfo,
+      votes: this.state.votes,
+      eventName: this.props.eventName,
+      description: this.props.description,
+      where: this.props.where
+    }); 
+
     if(!this.state.hasVoted){
       this.setState((prevVotes)=> {
         return {

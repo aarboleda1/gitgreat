@@ -21,7 +21,6 @@ class PickADate extends React.Component {
   }
 
   updateList (date) {
-    // var date = {date: date }
     this.state.dates.push(date);
     var newList = this.state.dates;
     this.setState({
@@ -87,6 +86,7 @@ class PickADate extends React.Component {
             dateInfo={ this.state.date }
             dates={ this.state.dates }
             handleDateClick={ () => this.handleDateClick }
+            featuredEvent={this.props.featuredEvent}
           />
         </div>
       </div>

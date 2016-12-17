@@ -1,7 +1,7 @@
 import React from 'react';
 import DateListEntry from './DateListEntry.jsx';
 
-const DateList = ({dates, handleDateClick, dateInfo}) => {  
+const DateList = ({dates, handleDateClick, dateInfo, featuredEvent}) => {  
   return (
     <div className="date-list">
       <strong>
@@ -14,6 +14,7 @@ const DateList = ({dates, handleDateClick, dateInfo}) => {
             date={date}
             handleDateClick={ handleDateClick }
             dateInfo={dateInfo}
+            featuredEvent={featuredEvent}
           />
         )
       })}  
