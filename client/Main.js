@@ -11,6 +11,7 @@ import Details from './Components/Details Page/Details.jsx';
 import Transportation from './Components/Transportation Page/Transportation.jsx';
 import EventList from './Components/EventList.jsx';
 import EventPlanning from './Components/EventPlanning.jsx';
+import PickADate from './Components/PickADatePage/PickADate.jsx';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
 
@@ -26,5 +27,6 @@ ReactDOM.render((
       <Route path="/eventlist" component={EventList}/>
       <Route path="/eventPlanning" component={EventPlanning}/>
       <Route path="/create" component={CreateEventApp}/>
+      <Route path="/pickADate" component={PickADate}/>
   </Router>
 ), document.getElementById('app'));
