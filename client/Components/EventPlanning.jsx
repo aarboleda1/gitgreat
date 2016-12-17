@@ -39,7 +39,8 @@ class EventPlanning extends React.Component {
 
     var propsToTransportation = {
       username: this.props.accountName,
-      eventLocation: this.props.featuredEvent.where
+      eventLocation: this.props.featuredEvent.where,
+      eventName: this.props.featuredEvent.name
     };
 
     var view = <Details propsToDetails={propsToDetails} />;

@@ -18,6 +18,9 @@ class Attendees extends React.Component {
   // On component did mount, get list of all attendees with ajax get request
   componentDidMount() {
     var successHandler = function(data) {
+      // need to turn the attendees from the data into an array of names
+      // console log data here after writing the route
+      
       this.setState({
         attendees: data
       });
@@ -25,7 +28,10 @@ class Attendees extends React.Component {
 
     $.ajax({
       method: 'GET',
-      url: '/getattendees',
+      url: '/attendingEvents',
+      data: {
+        eventName: this.currentProps.eventName
+      },
       success: successHandler.bind(this)
     });
   }
@@ -39,11 +45,15 @@ class Attendees extends React.Component {
       attendees: newArray
     });
 
-    // PUT request to the server to update attendee list
+    // POST request to the server to update attendee list
     $.ajax({
       method: 'POST',
-      url: 'updateattendee',
-      data: newArray
+      url: '/attendingEvents',
+      contentType: 'application/json',
+      data: JSON.stringify({
+        accountName: userToAdd,
+        eventName: this.currentProps.eventName
+      })
     });
   }
 

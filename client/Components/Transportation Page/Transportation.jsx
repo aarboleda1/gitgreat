@@ -17,7 +17,8 @@ class Transportation extends React.Component {
     };
 
     var propsToTransportationRides = {
-      username: this.currentProps.username
+      username: this.currentProps.username,
+      eventName: this.currentProps.eventName
     };
 
     return (

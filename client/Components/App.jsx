@@ -94,8 +94,7 @@ class App extends React.Component {
         (<Login 
           handleLogin={this.handleLogin}
         />);
-    }
-    else if (this.state.page === 'events') {
+    } else if (this.state.page === 'events') {
       view = 
         (<EventList
           attending={this.state.eventList}

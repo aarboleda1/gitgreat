@@ -32,15 +32,12 @@ class Details extends React.Component {
     };
 
     var propsToAttendees = {
+      eventName: currentProps.eventName,
       isPlanner: currentProps.isPlanner
     };
 
     return (
       <div>
-
-        <div className="nav-container">
-          <Nav/>
-        </div>
 
         <div className="container" style={{'marginLeft': '300px'}}>
 
