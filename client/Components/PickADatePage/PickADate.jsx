@@ -34,7 +34,6 @@ class PickADate extends React.Component {
     var month = dateInfo.month();
     var year = dateInfo.year();
     var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
-    console.log(time);
     var completeDate = month + '/' + date + '/' + year + ' ' + time;
     var updatedList = this.updateList(completeDate);
     this.setState({
@@ -85,6 +84,7 @@ class PickADate extends React.Component {
         >
         <strong>Most Popular Dates for this Event</strong>
           <DateList             
+            dateInfo={ this.state.date }
             dates={ this.state.dates }
             handleDateClick={ () => this.handleDateClick }
           />

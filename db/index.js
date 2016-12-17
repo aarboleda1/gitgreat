@@ -80,8 +80,10 @@ var Messages = sequelize.define('messages', {
 
 var TimeDate = sequelize.define('timedate', {
   dates: {
-    type: Sequelize.STRING,
-    votes: Sequelize.INTEGER 
+    type: Sequelize.STRING
+  },
+  votes: {
+    type: Sequelize.INTEGER
   }
 });
 
@@ -138,5 +140,5 @@ module.exports.ItemList = ItemList;
 module.exports.Reminder = Reminder;
 module.exports.Photos = Photos;
 module.exports.Messages = Messages;
-
+module.exports.TimeDate= TimeDate;
 module.exports.sequelize = sequelize;
