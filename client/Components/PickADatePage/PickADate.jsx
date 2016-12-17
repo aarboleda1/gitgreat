@@ -62,9 +62,17 @@ class PickADate extends React.Component {
         <div className="nav-container">
           <Nav/>
         </div>
-        <div style={ titleStyle }>
-          <h4>Choose a Time and Date For This Event!</h4>
-        </div>
+          <div style={ titleStyle }>
+            <h4>Choose a Time and Date For This Event!</h4>
+          </div>
+          <div style={titleStyle}className="instruction-container">
+            <ul>
+              <h5>How This Works</h5>
+              <li>1) Choose a Date, enter a time that works for You</li>
+              <li>1) Below are 5 most popular times by your group</li>
+              <li>1) To suggest a new time, click on a date and submit the date!</li>
+            </ul>
+          </div>
         <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
           <FeatureNavigation />
         </div>

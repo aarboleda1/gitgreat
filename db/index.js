@@ -78,14 +78,15 @@ var Messages = sequelize.define('messages', {
   }
 });
 
-var Dates = sequelize.define('dates', {
+var TimeDate = sequelize.define('timedate', {
   dates: {
-    type: Sequelize.STRING
-  },
-  time: {
-    type: Sequelize.DATE 
+    type: Sequelize.STRING,
+    votes: Sequelize.INTEGER 
   }
 });
+
+// //one timeDate belongs to one event;
+TimeDate.belongsTo(Event);
 
 // one itemlist : one event
 ItemList.belongsTo(Event);

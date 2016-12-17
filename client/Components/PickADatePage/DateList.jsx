@@ -12,7 +12,7 @@ const DateList = ({dates, handleDateClick}) => {
           <DateListEntry 
             key={index} 
             date={date}
-            handleDateClick={handleDateClick}
+            handleDateClick={ handleDateClick }
           />
         )
       })}  
