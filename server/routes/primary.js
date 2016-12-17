@@ -65,7 +65,30 @@ module.exports = function(app){
     });
   });
 
-  // update an event in table
+  // For a given event, get all attendees
+  app.get('/attendee', function(req, res, next) {
+    var eventName = '"' + req.query.eventName + '"';
+
+    var queryString ='SELECT \
+                        attendee.accountName, \
+                        attendee.displayName, \
+                        attendee.pw, \
+                        attendee.phoneNumber\
+                      FROM events as e \
+                        INNER JOIN eventattendees as ea ON (e.id = ea.eventId) \
+                        INNER JOIN users as attendee ON (ea.userId = attendee.id) \
+                      WHERE e.name = ' ;
+    queryString = queryString.concat(eventName);
+
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.SELECT })
+    .then(function(events) {
+      res.end(JSON.stringify(events));
+    })
+    .catch(function(error) {
+      console.log('serverside error in GET /attendee table');
+      next(error);
+    })
+  })
 
   // For a given user, get all their attending events
   app.get('/attendingEvents', function(req, res, next) {
@@ -85,7 +108,6 @@ module.exports = function(app){
 
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.SELECT})
     .then(function(events) {
-      console.log('EVENTS FROM SERVER', events);
       res.end(JSON.stringify(events));
     })
     .catch(function(error) {
@@ -94,7 +116,7 @@ module.exports = function(app){
     })
   });
 
-  // add a user as an 'attendee' to an event
+  // For a given event, add a user as an 'attendee' to that event
   app.post('/attendingEvents', function(req, res, next) {
     var accountName = '"' + req.body.accountName + '"';
     var eventName = '"' + req.body.eventName + '"';
@@ -107,7 +129,6 @@ module.exports = function(app){
                       ' AND event.name = ' + eventName;
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
     .then(function(success) {
-      console.log('POST successful');
       res.end(JSON.stringify(success));
     })
     .catch(function(error) {
@@ -142,7 +163,7 @@ module.exports = function(app){
     })
   });
 
-  // add a user as a 'planner' for an event
+  // For a given user, add a user as a 'planner' to that event
   app.post('/planningEvents', function(req, res, next) {
     var accountName = '"' + req.body.accountName + '"';
     var eventName = '"' + req.body.eventName + '"';
@@ -155,7 +176,6 @@ module.exports = function(app){
                       ' AND event.name = ' + eventName;
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
     .then(function(success) {
-      console.log('POST successful');
       res.end(JSON.stringify(success));
     })
     .catch(function(error) {
