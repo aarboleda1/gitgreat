@@ -16,6 +16,20 @@ class TransportationRides extends React.Component {
     this.handleVolunteer = this.handleVolunteer.bind(this);
   }
 
+  componentDidMount() {
+    var successHandler = function() {
+
+    };
+
+    $.ajax({
+      method: 'GET',
+      url: '/rides',
+      data: {
+        eventName: this.currentProps.eventName
+      }
+    });
+  }
+
   handleRideWith(car) {
     if (car.riders.length < car.seats) {
       car.riders.push(this.currentProps.username);

@@ -20,14 +20,21 @@ var propsToDetails = {
   username: 'Nick',
   isPlanner: true,
   eventDescription: 'Party time at Hack Reactor',
-  eventLocation: '944 Market Street',
-  eventName: 'testname'
+  eventLocation: 'aaa',
+  eventName: 'c'
 };
 
 var propsToTransportation = {
   username: 'Nick',
-  eventLocation: '944 Market Street'
+  eventLocation: '944 Market Street',
+  eventName: 'c'
 };
+
+// NOTES:
+// Maybe a function that handles clicks
+// passed down to eventlist, then when event is clicked, event name is passed back up here
+// then that is sent as props to details/whatever needs it
+// probably a get request to the server that gets that event by name
 
 ReactDOM.render((
   <Router history={browserHistory}>

@@ -1,8 +1,8 @@
 //Child component contained within HomepageApp
 //Contains the event planning navigation bar
 import React from 'react';
-import Details from './Details Page/Details.jsx'
-import Transportation from './Transportation Page/Transportation.jsx'
+import Details from './Details Page/Details.jsx';
+import Transportation from './Transportation Page/Transportation.jsx';
 import FeatureNavigation from './FeatureNavigation.jsx';
 import WhatToBring from './WhatToBring.jsx';
 import Activities from './Activities.jsx';
@@ -79,7 +79,7 @@ class EventPlanning extends React.Component {
       username: 'Nick',
       isPlanner: true,
       eventDescription: 'Party time at Hack Reactor',
-      eventLocation: '944 Market Street',
+      eventLocation: 'aaa',
       eventName: this.props.featuredEvent.name
     };
 

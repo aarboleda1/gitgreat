@@ -28,7 +28,7 @@ class Forum extends React.Component {
     $.ajax({
       method: 'GET',
       url: '/forummessages',
-      params: {
+      data: {
         eventName: this.currentProps.eventName
       },
       success: successHandler.bind(this)
@@ -52,9 +52,10 @@ class Forum extends React.Component {
       messages: newMessageArray
     });
 
+    var newMessageArrayString = JSON.stringify(newMessageArray);
     var putData = {
       eventName: this.currentProps.eventName,
-      messages: newMessageArray
+      messages: newMessageArrayString
     };
 
     // Send a put request to the server to update messages database

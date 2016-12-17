@@ -95,6 +95,7 @@ ItemList.belongsTo(Event);
 Reminder.belongsTo(Event);
 
 // one array of messages : one event
+Event.hasMany(Messages);
 Messages.belongsTo(Event);
 
 // initial setup to remove timestamps join tables (sequelize on-default adds)
@@ -136,5 +137,6 @@ module.exports.Event = Event;
 module.exports.ItemList = ItemList;    
 module.exports.Reminder = Reminder;
 module.exports.Photos = Photos;
+module.exports.Messages = Messages;
 
 module.exports.sequelize = sequelize;
