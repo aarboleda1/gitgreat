@@ -39,6 +39,8 @@ class App extends React.Component {
   }
 
   updateEvents() {
+    // back to back asynchronous,
+    // order of eventlist/planning list update doesn't matter 
     $.ajax({
       method: 'GET',
       url: '/attendingEvents?accountName=' + this.state.accountName,

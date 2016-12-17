@@ -35,19 +35,20 @@ class CreateEventApp extends React.Component {
     //sends a post request with the event data to the server, which will enter the event into
     //the eventTable
     var successHandler = function() {
-      $('#msg').text('event successfully posted');
       this.props.updateEvents();
       this.props.changePage('events');
-      // REDIRECT TO HOMEPAGEAPP ?
-    };
+    }.bind(this);
 
+    // BELOW AJAX CALLS NEED TO BE PROMISIFED
     // post event to event table
     $.ajax({
       method: 'POST',
       url: '/event',
       contentType: 'application/json',
       data: JSON.stringify(this.state),
-      success: successHandler.bind(this)
+      success: function(data) {
+        console.log('successful post to events');
+      }
     });
     // post user as an attendee (join table insert)
     $.ajax({
@@ -59,8 +60,6 @@ class CreateEventApp extends React.Component {
               accountName: this.props.accountName
             }),
       success: function(data) {
-        console.log(data);
-
         console.log('successful post to attendingevents');
       }
     })
@@ -74,8 +73,8 @@ class CreateEventApp extends React.Component {
               accountName: this.props.accountName
             }),
       success: function(data) {
-        console.log(data);
         console.log('successful post to planningevents');
+        successHandler();
       }
     })
     event.preventDefault();

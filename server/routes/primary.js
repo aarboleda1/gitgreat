@@ -11,6 +11,24 @@ module.exports = function(app){
     res.redirect('/createEvent.html');
   });
 
+  app.get('/user', function(req, res, next) {
+    var accountName = req.query.accountName;
+    dbModels.User
+    .findOne({
+      where: {accountName: accountName}
+    })
+    .then(function(data) {
+      if (data) {
+        // user was found
+        res.end(JSON.stringify(data));
+      } else {
+        // user was not found
+        res.end(JSON.stringify(
+          {notFound: accountName + ' not found'}));
+      }
+    });
+  });
+
   // New user
   app.post('/user', function(req, res, next) {
     dbModels.User
