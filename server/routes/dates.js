@@ -11,7 +11,7 @@ module.exports = function(app) {
     var votes = req.body.votes;
     var eventName = req.body.eventName;
     var description = req.body.description;
-    var where = req.body.where;
+    var where = req.body.where
     console.log(eventName, 'EVENTNAME')
     dbModels.Event
       .findOne({
@@ -21,14 +21,16 @@ module.exports = function(app) {
           where: 'hr'
         }
       })
-      .then(function (event) {
+      .then(function (event, other) {
+        console.log(event, 'event');
         var id = event.get('id')
         console.log(id, 'IDDDD');
+        console.log(other, 'OTHER');
       dbModels.TimeDate
         .findOrCreate({where: {
           dates: date,
           votes: votes,
-          eventId: id
+          eventId: 1
         }})
         .then(function (timedate) {
           res.sendStatus(200);

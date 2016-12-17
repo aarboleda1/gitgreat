@@ -20,6 +20,13 @@ class PickADate extends React.Component {
     this.handleDateClick = this.handleDateClick.bind(this);
   }
 
+  componentDidMount () {
+  // ajax request for getting all lists for 
+    // $.ajax({
+      
+    // }) 
+  }
+
   updateList (date) {
     this.state.dates.push(date);
     var newList = this.state.dates;
