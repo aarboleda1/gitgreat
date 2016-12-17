@@ -11,6 +11,7 @@ class EventList extends React.Component {
       completed: []
     };
   }
+
   componentWillReceiveProps(nextProps) {
     //This function will sort the events in the eventList into two categories: upcoming and deleted
     //The sort logic compares the event date with the current date and checks to see if the event 
@@ -29,6 +30,22 @@ class EventList extends React.Component {
       });
       this.setState({upcoming: upcoming, completed: completed});
     }
+  }
+
+  componentDidMount() {
+    var upcoming = [];
+    var completed = [];
+    for(var i = 0; i < this.props.eventData.length; i++) {
+      var now = new Date();
+      var eventDate = new Date(this.props.eventData[i].when);
+      if (eventDate >= now) {
+        upcoming.push(this.props.eventData[i]);
+      } else {
+        completed.push(this.props.eventData[i]);
+      }
+    }
+    
+    this.setState({upcoming: upcoming, completed: completed});
   }
 
   render() {

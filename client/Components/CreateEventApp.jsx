@@ -1,7 +1,7 @@
 //Parent App within createEvent.html
 //Allows users to create new events
 import React from 'react';
-import Nav from './nav.jsx';
+// import Nav from './nav.jsx';
 import $ from 'jquery';
 
 
@@ -35,17 +35,20 @@ class CreateEventApp extends React.Component {
     //sends a post request with the event data to the server, which will enter the event into
     //the eventTable
     var successHandler = function() {
-      $('#msg').text('event successfully posted');
-      // REDIRECT TO HOMEPAGEAPP ?
-    };
-    console.log(this.props.route.accountName, 'props.route 41 account');
+      this.props.updateEvents();
+      this.props.changePage('events');
+    }.bind(this);
+
+    // BELOW AJAX CALLS NEED TO BE PROMISIFED
     // post event to event table
     $.ajax({
       method: 'POST',
       url: '/event',
       contentType: 'application/json',
       data: JSON.stringify(this.state),
-      success: successHandler.bind(this)
+      success: function(data) {
+        console.log('successful post to events');
+      }
     });
     // post user as an attendee (join table insert)
     $.ajax({
@@ -54,11 +57,9 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.route.accountName
+              accountName: this.props.accountName
             }),
       success: function(data) {
-        console.log(data);
-
         console.log('successful post to attendingevents');
       }
     })
@@ -69,11 +70,11 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify({
               eventName: this.state.name,
-              accountName: this.props.route.accountName
+              accountName: this.props.accountName
             }),
       success: function(data) {
-        console.log(data);
         console.log('successful post to planningevents');
+        successHandler();
       }
     })
     event.preventDefault();
@@ -81,7 +82,6 @@ class CreateEventApp extends React.Component {
   render() {
     return (
       <div>
-        <Nav />
         <div className="featureBody" id="createEvent">
           <form onSubmit={this.handleEventSubmit}>
             <p><label>
