@@ -1,4 +1,5 @@
 import React from 'react';
+import $ from 'jquery';
 
 class DateListEntry extends React.Component {
   constructor (props) {
@@ -7,9 +8,18 @@ class DateListEntry extends React.Component {
       votes: 1,
       hasVoted: false
     } 
+    console.log(this.props,' FEATREUD');
   }
   // Allows users to vote for a time 
   increaseVote () {
+    // everytime a user updates a date, send it to DB 
+    this.sendToDB({
+      date: this.props.dateInfo,
+      votes: this.state.votes,
+      eventName: this.props.eventName,
+      description: this.props.description,
+      location: this.props.where
+    }); 
 
     if(!this.state.hasVoted){
       this.setState((prevVotes)=> {
@@ -19,7 +29,16 @@ class DateListEntry extends React.Component {
         };
       })
     }
+  }
 
+  // When the user clicks on a new event, send that to the database
+  // date will be an object
+  sendToDB (date) {
+    $.ajax({
+      method: 'POST',
+      url: '/timedate',
+      data: date
+    });
   }
 
   render () {

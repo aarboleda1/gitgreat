@@ -88,8 +88,7 @@ class HomepageApp extends React.Component {
     return (
         <div>
           <Nav />
-          {this.props.children}
-
+          {view}
         </div>
     );
   }

@@ -1,11 +1,46 @@
 const dbModels = require('../../db/index.js');
 
 module.exports = function(app) {
-//   // new time stamp to the database
-//   app.post();
+  // Find the ID of the event then 
+    // then set the foreign key of the vent
+  // New time stamp to the database
+  app.post('/timedate', function (req, res, next) {
 
-//   // edit the time stamp in order to increase number of votes
+    console.log(req.body, 'req.body');
+    var date = req.body.date;
+    var votes = req.body.votes;
+    var eventName = req.body.eventName;
+    var description = req.body.description;
+    var location = req.body.location
+    console.log(eventName, 'EVENTNAME')
+    dbModels.Event
+      .findOne({
+        where: {
+          name: eventName,
+          description: description, 
+          location: location
+        }
+      })
+      .then(function (event, other) {
+        console.log(event, 'event');
+        var id = event.get('id')
+        console.log(id, 'IDDDD');
+        console.log(other, 'OTHER');
+      dbModels.TimeDate
+        .findOrCreate({where: {
+          dates: date,
+          votes: votes,
+          eventId: 1
+        }})
+        .then(function (timedate) {
+          res.sendStatus(200);
+        })
+      })
+  });
+
+//   // edit the time stamp in order to place new number of votes
 //   app.put();
+
 
 //   //get all the time stamps for that specific event
 //   app.get();

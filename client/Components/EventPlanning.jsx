@@ -52,7 +52,7 @@ class EventPlanning extends React.Component {
     } else if (this.state.tab === 'transportationBtn') {
       view = <Transportation propsToTransportation={propsToTransportation} />;
     } else if (this.state.tab === 'dateBtn') {
-      view = <PickADate />;
+      view = <PickADate featuredEvent={this.props.featuredEvent}/>;
     }
 
     return (
