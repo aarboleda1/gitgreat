@@ -47,10 +47,7 @@ ReactDOM.render((
       <Route path="/eventlist" component={EventList}/>
       <Route path="/eventPlanning" component={EventPlanning}/>
       <Route path="/create" component={CreateEventApp}/>
-<<<<<<< HEAD
       <Route path="/pickADate" component={PickADate}/>
-=======
       <Route path="/transportation" propsToTransportation={propsToTransportation} component={Transportation}/>
->>>>>>> Refactor transportation for webpack
   </Router>
 ), document.getElementById('app'));
