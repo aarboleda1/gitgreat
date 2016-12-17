@@ -59,9 +59,7 @@ class PickADate extends React.Component {
     }
     return (
       <div className="pick-a-date-container">
-        <div className="nav-container">
-          <Nav/>
-        </div>
+
           <div style={ titleStyle }>
             <h4>Choose a Time and Date For This Event!</h4>
           </div>
@@ -73,9 +71,7 @@ class PickADate extends React.Component {
               <li>1) To suggest a new time, click on a date and submit the date!</li>
             </ul>
           </div>
-        <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
-          <FeatureNavigation />
-        </div>
+
         <div id="calendar-container">
           <Calendar 
             onSelect={ (info) => this.getDateInfo(info) }

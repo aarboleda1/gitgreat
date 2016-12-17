@@ -1,6 +1,6 @@
-// const dbModels = require('../../db/index.js');
+const dbModels = require('../../db/index.js');
 
-// module.exports = function(app) {
+module.exports = function(app) {
 //   // new time stamp to the database
 //   app.post();
 
@@ -11,4 +11,4 @@
 //   app.get();
 
 
-// };
+};

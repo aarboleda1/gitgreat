@@ -1,63 +1,14 @@
 import React from 'react';
 import { slide as Menu } from 'react-burger-menu';
-import { Link } from 'react-router';
-import Radium from 'radium';
 
-let RadiumLink = Radium(Link);
-class FeatureNavigation extends React.Component {
-  showSettings (event) {
-    console.log(event);
-    event.preventDefault();
-  }
-  render() {
-  var styles = {
-    bmBurgerButton: {
-        position: 'fixed',
-        width: '36px',
-        height: '30px',
-        left: '36px',
-        top: '36px'
-    },
-    bmBurgerBars: {
-        background: '#373a47'
-    },
-    bmCrossButton: {
-        height: '24px',
-        width: '24px'
-    },
-    bmCross: {
-        background: '#bdc3c7'
-    },
-    bmMenu: {
-        background: '#373a47',
-        padding: '2.5em 1.5em 0',
-        fontSize: '1.15em'
-    },
-    bmMorphShape: {
-        fill: '#373a47'
-    },
-    bmItemList: {
-        color: '#b8b7ad',
-        padding: '0.8em'
-    },
-    bmOverlay: {
-        background: 'rgba(0, 0, 0, 0.3)'
-    }
-  };
-    return (
-      <Menu
-        className="side-nav"
-        width={ 225 }
-      >
-        <RadiumLink className="home" to="/home">Home</RadiumLink>
-        <RadiumLink className="transportation" to="/transportation">Transportation</RadiumLink>
-        <RadiumLink className="wtb" to="/wtb">What To Bring</RadiumLink>
-        <RadiumLink className="reminders" to="/reminders">Reminders</RadiumLink>
-        <RadiumLink className="pick-a-date" to="/pickadate">Pick A Date</RadiumLink>
-        <RadiumLink onClick={ this.showSettings } className="menu-item--small" href="">Settings</RadiumLink>
-      </Menu>
-    );
-  }
-};
+var FeatureNavigation = (props) => (
+  <div id="eventNav">
+    <button href='#' id="firstBtn" className="detailsBtn" onClick={(e) => props.changeDisplay(e)}>Home</button>
+    <button href='#' className="wtbBtn" onClick={(e) => props.changeDisplay(e)}>What To Bring</button>
+    <button href='#' className="reminderBtn" onClick={(e) => props.changeDisplay(e)}>Reminders</button>
+    <button href='#' className="transportationBtn" onClick={(e) => props.changeDisplay(e)}>Transportation</button>
+    <button href='#' className="dateBtn" onClick={(e) => props.changeDisplay(e)}>Date</button>
+  </div>
+);
 
 export default FeatureNavigation;

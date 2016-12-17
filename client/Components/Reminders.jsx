@@ -72,12 +72,7 @@ class Reminders extends React.Component {
   render() {
     return (
     <div className="reminder-wrapper"> 
-      <div className="nav-container">
-        <Nav/>
-      </div>
-        <div id="outer-container" styles={{height: '100%'}}>
-          <FeatureNavigation />
-        </div>
+    
       <div className="bringForm">
         <h3>Reminder</h3>
         <form onSubmit={this.handleReminderSubmit}>

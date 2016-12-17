@@ -83,9 +83,7 @@ class WhatToBring extends React.Component {
       <div className="nav-container">
         <Nav/>
       </div>
-      <div id="outer-container" styles={{height: '100%'}}>
-        <FeatureNavigation />
-      </div>
+
       <div>
         <form className="bringForm" onSubmit={this.handleSubmit}>
         <h3>What To Bring</h3>
