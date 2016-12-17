@@ -4,6 +4,7 @@ import Calendar from 'rc-calendar';
 import FeatureNavigation from '../FeatureNavigation.jsx';
 import Moment from 'moment';
 import DateList from './DateList.jsx';
+import $ from 'jquery';
 
 
 
@@ -21,17 +22,20 @@ class PickADate extends React.Component {
   }
 
   componentDidMount () {
-  // ajax request for getting all lists for 
-    // $.ajax({
-      
-    // }) 
+    this.updateList(); 
   }
 
-  updateList (date) {
-    this.state.dates.push(date);
-    var newList = this.state.dates;
-    this.setState({
-      dates: newList
+  updateList () {
+    var context = this;
+    $.ajax({
+      method: 'GET',
+      url: '/timedate',
+      data: this.props.featuredEvent,
+      success: function (dates) {
+        context.setState({
+          dates: dates
+        });
+      }
     })
   }
 
@@ -66,7 +70,7 @@ class PickADate extends React.Component {
       <div className="pick-a-date-container">
 
           <div style={ titleStyle }>
-            <h4>Choose a Time and Date For This Event!</h4>
+            <h4>Choose a Time and Date For {this.props.featuredEvent.name}!</h4>
           </div>
           <div style={titleStyle}className="instruction-container">
             <ul>

@@ -9,9 +9,8 @@ class DateListEntry extends React.Component {
       hasVoted: false
     } 
   }
-  // Allows users to vote for a time 
+  
   increaseVote () {
-    console.log(this.props, 'EVENT NAME')
     // everytime a user updates a date, send it to DB 
     this.sendToDB({
       date: this.props.date,

@@ -20,7 +20,7 @@ module.exports = function(app) {
           where: location,
         }
       })
-      .then(function (event, other) {
+      .then(function (event) {
         var id = event.get('id')
       dbModels.TimeDate
         .findOrCreate({where: {
@@ -34,12 +34,41 @@ module.exports = function(app) {
       })
   });
 //   //get all the time stamps for that specific event
-  // app.get();
+  app.get('/timedate', function (req, res, next) {
+    // get all for a specific event
+    var eventName = req.query.name;
+    var description = req.query.description;
+    var location = req.query.where;
+    dbModels.Event
+      .findOne({
+        where: {
+          name: eventName,
+          description: description, 
+          where: location,
+        }
+      })
+      .then(function (event) {
+        var id = event.get('id');
+        dbModels.TimeDate
+          .findAll({
+          where: {
+            eventId: id
+          }
+        })
+        .then(function (dates) {
+          console.log(dates, 'DATES INSIDE DATES.JS');
+          res.send(dates);
+        })
+      }) 
+  });
 
 //   // edit the time stamp in order to place new number of votes
 //   app.put();
 
 
-
+// { name: 'Social Night',
+//   description: 'GAMES/HOLIDAY STUFF',
+//   where: 'Hack Reactor',
+//   when: '' }
 
 };
