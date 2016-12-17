@@ -6,7 +6,7 @@ class Login extends React.Component {
     super(props);
     this.state = {
       accountName: '',
-      showSignup: false
+      showLogin: false
     };
     this.userInput = this.userInput.bind(this);
     this.checkUserExists = this.checkUserExists.bind(this);
@@ -20,13 +20,21 @@ class Login extends React.Component {
       success: function(data) {
         var parsed = JSON.parse(data);
         if (parsed.notFound){
-          // user was not found in database
-          this.setState({showSignup: true});
+          // user was not found in database, post them to db
+          $.ajax({
+            method: 'POST',
+            url: '/user',
+            contentType: 'application/json',
+            data: JSON.stringify({accountName: this.state.accountName}),
+            success: function(success) {
+              this.props.handleLogin(accountName);
+            }.bind(this)
+          })
         } else {
           // user was found, login using the accountName
-          this.props.handleLogin(this.state.accountName)
+          this.props.handleLogin(accountName);
         }
-      }
+      }.bind(this)
     })
   }
 
@@ -35,7 +43,7 @@ class Login extends React.Component {
       method: 'POST',
       url: '/user',
       contentType: 'application/json',
-      data: JSON.stringify(this.state),
+      data: JSON.stringify(this.state.accountName),
       success: successHandler.bind(this)
     });
   }
@@ -54,7 +62,7 @@ class Login extends React.Component {
                value={this.state.accountName} 
                onChange={this.userInput}/>
         <button className="btn hidden-sm-down"
-                onClick={() => (this.props.handleLogin(this.state.accountName))}>
+                onClick={() => (this.checkUserExists(this.state.accountName))}>
           Submit
         </button>
       </div>
