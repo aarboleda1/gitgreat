@@ -26,7 +26,8 @@ class TransportationRides extends React.Component {
       url: '/rides',
       data: {
         eventName: this.currentProps.eventName
-      }
+      },
+      success: successHandler.bind(this)
     });
   }
 
@@ -42,7 +43,6 @@ class TransportationRides extends React.Component {
   }
 
   handleVolunteer() {
-    console.log(this);
     var newCarArray = this.state.cars;
     var newCar = {
       driver: this.currentProps.username,
