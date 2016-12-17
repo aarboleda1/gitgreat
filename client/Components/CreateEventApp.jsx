@@ -13,7 +13,6 @@ class CreateEventApp extends React.Component {
       description: '',
       when: '',
       where: ''
-      // newEvent: {}
     };
     this.handleNameChange = this.handleNameChange.bind(this);
     this.handleDateChange = this.handleDateChange.bind(this);
@@ -40,6 +39,7 @@ class CreateEventApp extends React.Component {
     }.bind(this);
 
     // BELOW AJAX CALLS NEED TO BE PROMISIFED
+
     // post event to event table
     $.ajax({
       method: 'POST',
@@ -59,10 +59,11 @@ class CreateEventApp extends React.Component {
               eventName: this.state.name,
               accountName: this.props.accountName
             }),
+
       success: function(data) {
         console.log('successful post to attendingevents');
       }
-    })
+    });
     // post user as a planner (join table insert)
     $.ajax({
       method: 'POST',
@@ -76,7 +77,7 @@ class CreateEventApp extends React.Component {
         console.log('successful post to planningevents');
         successHandler();
       }
-    })
+    });
     event.preventDefault();
   } 
   render() {
@@ -87,20 +88,20 @@ class CreateEventApp extends React.Component {
             <p><label>
               Name:  
               <input type="text" name="name" 
-                value={this.state.name}
-                onChange={this.handleNameChange}/>
+              value={this.state.name}
+              onChange={this.handleNameChange}/>
             </label></p>
             <p><label>
               Date:
               <input type="datetime-local" name="date" 
-                value={this.state.when}
-                onChange={this.handleDateChange}/>
+              value={this.state.when}
+              onChange={this.handleDateChange}/>
             </label></p>
             <p><label>
               Location: 
               <input type="text" name="location" 
-                value={this.state.where}
-                onChange={this.handleLocChange}/>
+              value={this.state.where}
+              onChange={this.handleLocChange}/>
             </label></p>
             <input type="submit" value="Submit" />
           </form>

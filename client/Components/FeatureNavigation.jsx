@@ -50,8 +50,8 @@ class FeatureNavigation extends React.Component {
         width={ 225 }
       >
         <RadiumLink className="home" to="/home">Home</RadiumLink>
-        <RadiumLink className="wtb" to="/wtb">What To Bring</RadiumLink>
         <RadiumLink className="transportation" to="/transportation">Transportation</RadiumLink>
+        <RadiumLink className="wtb" to="/wtb">What To Bring</RadiumLink>
         <RadiumLink className="reminders" to="/reminders">Reminders</RadiumLink>
         <RadiumLink className="pick-a-date" to="/pickadate">Pick A Date</RadiumLink>
         <RadiumLink onClick={ this.showSettings } className="menu-item--small" href="">Settings</RadiumLink>

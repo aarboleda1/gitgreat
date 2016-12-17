@@ -21,3 +21,5 @@ class TransportationMap extends React.Component {
     );
   }
 }
+
+export default TransportationMap;

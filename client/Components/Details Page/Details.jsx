@@ -3,6 +3,8 @@ import Description from './Description.jsx';
 import Location from './Location.jsx';
 import Forum from './Forum.jsx';
 import Attendees from './Attendees.jsx';
+import FeatureNavigation from '../FeatureNavigation.jsx';
+import Nav from '../Nav.jsx';
 
 class Details extends React.Component {
   constructor(props) {
@@ -10,7 +12,7 @@ class Details extends React.Component {
   }
 
   render() {
-    var currentProps = this.props.propsToDetails;
+    var currentProps = this.props.propsToDetails || this.props.route.propsToDetails;
     
     var propsToDescription = {
       eventName: currentProps.eventName,
@@ -33,28 +35,39 @@ class Details extends React.Component {
     };
 
     return (
-      <div className="container" style={{'marginLeft': '300px'}}>
+      <div>
 
-        <div className="row">
-          <div className="details-description col s6">
-            <Description propsToDescription={propsToDescription} />
-          </div>
-
-          <div className="details-location col s6">
-            <Location propsToLocation={propsToLocation} />
-          </div>
+        <div className="nav-container">
+          <Nav/>
         </div>
 
-        <div className="row">
-          <div className="details-forum col s6">
-            <Forum propsToForum={propsToForum} />
-          </div>
-
-          <div className="details-attendees col s6">
-            <Attendees propsToAttendees={propsToAttendees} />
-          </div>
+        <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
+          <FeatureNavigation />
         </div>
 
+        <div className="container" style={{'marginLeft': '300px'}}>
+
+          <div className="row">
+            <div className="details-description col s6">
+              <Description propsToDescription={propsToDescription} />
+            </div>
+
+            <div className="details-location col s6">
+              <Location propsToLocation={propsToLocation} />
+            </div>
+          </div>
+
+          <div className="row">
+            <div className="details-forum col s6">
+              <Forum propsToForum={propsToForum} />
+            </div>
+
+            <div className="details-attendees col s6">
+              <Attendees propsToAttendees={propsToAttendees} />
+            </div>
+          </div>
+
+        </div>
       </div>
     );
   }
