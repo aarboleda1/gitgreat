@@ -12,7 +12,7 @@ class Details extends React.Component {
   }
 
   render() {
-    var currentProps = this.props.propsToDetails || this.props.route.propsToDetails;
+    var currentProps = this.props.propsToDetails;
     
     var propsToDescription = {
       eventName: currentProps.eventName,
@@ -39,10 +39,6 @@ class Details extends React.Component {
 
         <div className="nav-container">
           <Nav/>
-        </div>
-
-        <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
-          <FeatureNavigation />
         </div>
 
         <div className="container" style={{'marginLeft': '300px'}}>

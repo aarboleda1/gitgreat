@@ -89,6 +89,7 @@ class HomepageApp extends React.Component {
         <div>
           <Nav />
           {this.props.children}
+
         </div>
     );
   }

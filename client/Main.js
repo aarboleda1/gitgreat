@@ -14,7 +14,6 @@ import EventPlanning from './Components/EventPlanning.jsx';
 import PickADate from './Components/PickADatePage/PickADate.jsx';
 
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import { Router, Route, IndexRoute, hashHistory } from 'react-router';
 
 var propsToDetails = {
   username: 'Nick',

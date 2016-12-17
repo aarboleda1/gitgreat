@@ -2,15 +2,13 @@ import React from 'react';
 import $ from 'jquery';
 import TransportationMap from './TransportationMap.jsx';
 import TransportationRides from './TransportationRides.jsx';
-import FeatureNavigation from '../FeatureNavigation.jsx';
-import Nav from '../nav.jsx';
 
 
 // Location, address, and username needs to be passed down
 class Transportation extends React.Component {
   constructor(props) {
     super(props);
-    this.currentProps = this.props.route.propsToTransportation;
+    this.currentProps = this.props.propsToTransportation;
   }
 
   render() {
@@ -24,14 +22,6 @@ class Transportation extends React.Component {
 
     return (
       <div>
-
-        <div className="nav-container">
-          <Nav/>
-        </div>
-
-        <div id="outer-container" style={{'position': 'fixed', 'left': '225px'}}>
-          <FeatureNavigation />
-        </div>
 
         <div className="container" style={{'marginLeft': '400px'}}>
 
