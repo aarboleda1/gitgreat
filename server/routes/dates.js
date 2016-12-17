@@ -5,45 +5,41 @@ module.exports = function(app) {
     // then set the foreign key of the vent
   // New time stamp to the database
   app.post('/timedate', function (req, res, next) {
-
-    console.log(req.body, 'req.body');
     var date = req.body.date;
     var votes = req.body.votes;
     var eventName = req.body.eventName;
     var description = req.body.description;
     var location = req.body.location
-    console.log(eventName, 'EVENTNAME')
+    
+    // find the event the create a new TimeDate
     dbModels.Event
       .findOne({
         where: {
           name: eventName,
           description: description, 
-          location: location
+          where: location,
         }
       })
       .then(function (event, other) {
-        console.log(event, 'event');
         var id = event.get('id')
-        console.log(id, 'IDDDD');
-        console.log(other, 'OTHER');
       dbModels.TimeDate
         .findOrCreate({where: {
           dates: date,
           votes: votes,
-          eventId: 1
+          eventId: id
         }})
         .then(function (timedate) {
           res.sendStatus(200);
         })
       })
   });
+//   //get all the time stamps for that specific event
+  // app.get();
 
 //   // edit the time stamp in order to place new number of votes
 //   app.put();
 
 
-//   //get all the time stamps for that specific event
-//   app.get();
 
 
 };

@@ -8,17 +8,17 @@ class DateListEntry extends React.Component {
       votes: 1,
       hasVoted: false
     } 
-    console.log(this.props,' FEATREUD');
   }
   // Allows users to vote for a time 
   increaseVote () {
+    console.log(this.props, 'EVENT NAME')
     // everytime a user updates a date, send it to DB 
     this.sendToDB({
-      date: this.props.dateInfo,
+      date: this.props.date,
       votes: this.state.votes,
-      eventName: this.props.eventName,
-      description: this.props.description,
-      location: this.props.where
+      eventName: this.props.featuredEvent.name,
+      description: this.props.featuredEvent.description,
+      location: this.props.featuredEvent.where
     }); 
 
     if(!this.state.hasVoted){
@@ -33,11 +33,12 @@ class DateListEntry extends React.Component {
 
   // When the user clicks on a new event, send that to the database
   // date will be an object
-  sendToDB (date) {
+  sendToDB (dateInfo) {
+    console.log(dateInfo, 'DATEINFO 38 DLE');
     $.ajax({
       method: 'POST',
       url: '/timedate',
-      data: date
+      data: dateInfo
     });
   }
 
@@ -51,7 +52,7 @@ class DateListEntry extends React.Component {
     return (
     <div className="date-wrapper" onClick={ () => this.increaseVote() }>
       <div style={ dateStyle } className='date-list-entry'>
-        {this.props.date}
+        {this.props.featuredEvent.date}
       </div>
       <div className="votes">
         Number of UpVotes for this Time {this.state.votes}
