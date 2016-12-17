@@ -70,7 +70,6 @@ class App extends React.Component {
     // set currentUser to the accountName
     this.setState({
       accountName: accountName,
-      // page: 'events',
       loggedIn: true
     }, () => {
       this.updateEvents();
@@ -99,7 +98,8 @@ class App extends React.Component {
     else if (this.state.page === 'events') {
       view = 
         (<EventList
-          eventData={this.state.eventList}
+          attending={this.state.eventList}
+          planning={this.state.planningList}
           handleEntryClick={this.handleEntryClick}
         />);
     } else if (this.state.page === 'eventDetails') {

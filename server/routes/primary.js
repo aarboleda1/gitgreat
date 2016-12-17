@@ -65,6 +65,8 @@ module.exports = function(app){
     });
   });
 
+  // update an event in table
+
   // For a given user, get all their attending events
   app.get('/attendingEvents', function(req, res, next) {
     var accountName = '"' + req.query.accountName + '"';

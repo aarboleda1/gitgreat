@@ -11,11 +11,10 @@ class CreateEventApp extends React.Component {
     this.state = {
       name: '',
       description: '',
-      when: '',
       where: ''
     };
     this.handleNameChange = this.handleNameChange.bind(this);
-    this.handleDateChange = this.handleDateChange.bind(this);
+    this.handleDescriptionChange = this.handleDescriptionChange.bind(this);
     this.handleLocChange = this.handleLocChange.bind(this);
     this.handleEventSubmit = this.handleEventSubmit.bind(this);
   }
@@ -23,8 +22,8 @@ class CreateEventApp extends React.Component {
   handleNameChange(event) {
     this.setState({name: event.target.value});
   }
-  handleDateChange(event) {
-    this.setState({when: event.target.value});
+  handleDescriptionChange(event) {
+    this.setState({description: event.target.value});
   }
   handleLocChange(event) {
     this.setState({where: event.target.value});
@@ -47,37 +46,37 @@ class CreateEventApp extends React.Component {
       contentType: 'application/json',
       data: JSON.stringify(this.state),
       success: function(data) {
-        console.log('successful post to events');
-      }
+        // post to eventattendees join table
+        $.ajax({
+          method: 'POST',
+          url: '/attendingEvents',
+          contentType: 'application/json',
+          data: JSON.stringify({
+                  eventName: this.state.name,
+                  accountName: this.props.accountName
+                }),
+          success: function(data) {
+            // post to eventplanners join table
+            $.ajax({
+              method: 'POST',
+              url: '/planningEvents',
+              contentType: 'application/json',
+              data: JSON.stringify({
+                      eventName: this.state.name,
+                      accountName: this.props.accountName
+                    }),
+              success: function(data) {
+                successHandler();
+              }.bind(this)
+            });
+          }.bind(this)
+        });
+      }.bind(this)
     });
     // post user as an attendee (join table insert)
-    $.ajax({
-      method: 'POST',
-      url: '/attendingEvents',
-      contentType: 'application/json',
-      data: JSON.stringify({
-              eventName: this.state.name,
-              accountName: this.props.accountName
-            }),
-
-      success: function(data) {
-        console.log('successful post to attendingevents');
-      }
-    });
+    
     // post user as a planner (join table insert)
-    $.ajax({
-      method: 'POST',
-      url: '/planningEvents',
-      contentType: 'application/json',
-      data: JSON.stringify({
-              eventName: this.state.name,
-              accountName: this.props.accountName
-            }),
-      success: function(data) {
-        console.log('successful post to planningevents');
-        successHandler();
-      }
-    });
+    
     event.preventDefault();
   } 
   render() {
@@ -86,16 +85,16 @@ class CreateEventApp extends React.Component {
         <div className="featureBody" id="createEvent">
           <form onSubmit={this.handleEventSubmit}>
             <p><label>
-              Name:  
+              Event Name:  
               <input type="text" name="name" 
               value={this.state.name}
               onChange={this.handleNameChange}/>
             </label></p>
             <p><label>
-              Date:
-              <input type="datetime-local" name="date" 
-              value={this.state.when}
-              onChange={this.handleDateChange}/>
+              Description:
+              <input type="text" name="description" 
+              value={this.state.description}
+              onChange={this.handleDescriptionChange}/>
             </label></p>
             <p><label>
               Location: 

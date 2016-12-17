@@ -6,54 +6,14 @@ import EventListEntry from './EventListEntry.jsx';
 class EventList extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      upcoming: [],
-      completed: []
-    };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    //This function will sort the events in the eventList into two categories: upcoming and deleted
-    //The sort logic compares the event date with the current date and checks to see if the event 
-    //has already passed.
-    if (nextProps.eventData) {
-      var upcoming = [];
-      var completed = [];
-      nextProps.eventData.forEach((event) => {
-        var now = new Date();
-        var eventDate = new Date(event.when);
-        if (eventDate >= now) {
-          upcoming.push(event);
-        } else {
-          completed.push(event);
-        }
-      });
-      this.setState({upcoming: upcoming, completed: completed});
-    }
-  }
-
-  componentDidMount() {
-    var upcoming = [];
-    var completed = [];
-    for(var i = 0; i < this.props.eventData.length; i++) {
-      var now = new Date();
-      var eventDate = new Date(this.props.eventData[i].when);
-      if (eventDate >= now) {
-        upcoming.push(this.props.eventData[i]);
-      } else {
-        completed.push(this.props.eventData[i]);
-      }
-    }
-    
-    this.setState({upcoming: upcoming, completed: completed});
   }
 
   render() {
     return (
       <div>
         <div className='featureBody' id='upcoming'> 
-          <h2>Upcoming Events</h2>
-          {this.state.upcoming.map((event, index) => {
+          <h2>Attending</h2>
+          {this.props.attending.map((event, index) => {
             return ( 
               <EventListEntry 
                 key={index} event={event} 
@@ -63,8 +23,8 @@ class EventList extends React.Component {
           })}
         </div>
         <div className='featureBody' id='completed'> 
-          <h2>Completed Events</h2>
-            {this.state.completed.map((event, index) => {
+          <h2>Planning</h2>
+            {this.props.planning.map((event, index) => {
               return ( 
                 <EventListEntry 
                   key={index} event={event} 
