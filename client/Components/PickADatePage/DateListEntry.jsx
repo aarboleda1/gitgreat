@@ -18,7 +18,7 @@ class DateListEntry extends React.Component {
       votes: this.state.votes,
       eventName: this.props.eventName,
       description: this.props.description,
-      where: this.props.where
+      location: this.props.where
     }); 
 
     if(!this.state.hasVoted){

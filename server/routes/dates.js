@@ -11,14 +11,14 @@ module.exports = function(app) {
     var votes = req.body.votes;
     var eventName = req.body.eventName;
     var description = req.body.description;
-    var where = req.body.where
+    var location = req.body.location
     console.log(eventName, 'EVENTNAME')
     dbModels.Event
       .findOne({
         where: {
-          name: 'xmas',
-          description: 'great pary', 
-          where: 'hr'
+          name: eventName,
+          description: description, 
+          location: location
         }
       })
       .then(function (event, other) {
