@@ -9,7 +9,6 @@ import Nav from '../Nav.jsx';
 class Details extends React.Component {
   constructor(props) {
     super(props);
-    console.log(this.props);
   }
 
   render() {
@@ -39,7 +38,7 @@ class Details extends React.Component {
     return (
       <div>
 
-        <div className="container" style={{'marginLeft': '300px'}}>
+        <div className="container" style={{'margin': '0 auto'}}>
 
           <div className="row">
             <div className="details-description col s6">

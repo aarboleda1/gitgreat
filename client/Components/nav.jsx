@@ -9,7 +9,7 @@ var Nav = (props) => (
   	<a href='/' className="title">Friends</a>
     <a href='#' onClick={() => (props.changePage('events'))}>Home</a>
     <a href='#' onClick={() => (props.changePage('createEvent'))}>Create Event</a>
-    <a href='#'>Log In</a>
+    <a href='/'>Log In</a>
   </div>
 );
 

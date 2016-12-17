@@ -24,7 +24,7 @@ class Transportation extends React.Component {
     return (
       <div>
 
-        <div className="container" style={{'marginLeft': '400px'}}>
+        <div className="container" style={{'margin': '0 auto'}}>
 
           <div className="transportation-map row">
             <TransportationMap propsToTransportationMap={propsToTransportationMap} />
