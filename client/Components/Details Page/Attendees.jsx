@@ -20,15 +20,19 @@ class Attendees extends React.Component {
     var successHandler = function(data) {
       // need to turn the attendees from the data into an array of names
       // console log data here after writing the route
-      
+      var attendeeArray = [];
+      var attendees = JSON.parse(data);
+      attendees.forEach( (attendee) => {
+        attendeeArray.push(attendee.accountName);
+      });
       this.setState({
-        attendees: data
+        attendees: attendeeArray
       });
     };
 
     $.ajax({
       method: 'GET',
-      url: '/attendingEvents',
+      url: '/attendee',
       data: {
         eventName: this.currentProps.eventName
       },
