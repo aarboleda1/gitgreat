@@ -67,13 +67,19 @@ var Reminder = sequelize.define('reminders', {
 });
 
 var Photos = sequelize.define('photos', {
- url: {
-   type: Sequelize.STRING
- }
+  url: {
+    type: Sequelize.STRING
+  }
 });
 
 var Messages = sequelize.define('messages', {
   messages: {
+    type: Sequelize.STRING
+  }
+});
+
+var Cars = sequelize.define('cars', {
+  cars: {
     type: Sequelize.STRING
   }
 });
@@ -99,6 +105,10 @@ Reminder.belongsTo(Event);
 // one array of messages : one event
 Event.hasMany(Messages);
 Messages.belongsTo(Event);
+
+// one array of cars : one event
+Event.hasMany(Cars);
+Cars.belongsTo(Event);
 
 // initial setup to remove timestamps join tables (sequelize on-default adds)
 var EventAttendee = sequelize.define('eventattendee', {
@@ -140,5 +150,6 @@ module.exports.ItemList = ItemList;
 module.exports.Reminder = Reminder;
 module.exports.Photos = Photos;
 module.exports.Messages = Messages;
-module.exports.TimeDate= TimeDate;
+module.exports.Cars = Cars;
+module.exports.TimeDate = TimeDate;
 module.exports.sequelize = sequelize;

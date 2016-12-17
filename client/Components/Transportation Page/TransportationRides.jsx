@@ -17,10 +17,11 @@ class TransportationRides extends React.Component {
   }
 
   componentDidMount() {
-    var successHandler = function() {
-
+    var successHandler = function(data) {
+      this.setState({
+        cars: data
+      });
     };
-
     $.ajax({
       method: 'GET',
       url: '/rides',
@@ -38,11 +39,23 @@ class TransportationRides extends React.Component {
       alert('This car is full!');
     }
 
+    var carArrayString = JSON.stringify(this.state.cars);
+    var putData = {
+      eventName: this.currentProps.eventName,
+      cars: carArrayString
+    };
+    $.ajax({
+      method: 'PUT',
+      url: '/rides',
+      data: putData
+    });
+
+
     // Rerenders after pushing to array
     this.forceUpdate();
   }
 
-  handleVolunteer() {
+  handleVolunteer(e) {
     var newCarArray = this.state.cars;
     var newCar = {
       driver: this.currentProps.username,
@@ -56,6 +69,18 @@ class TransportationRides extends React.Component {
       cars: newCarArray
     });
 
+    var carArrayString = JSON.stringify(this.state.cars);
+    var putData = {
+      eventName: this.currentProps.eventName,
+      cars: carArrayString
+    };
+    $.ajax({
+      method: 'PUT',
+      url: '/rides',
+      data: putData
+    });
+
+    e.preventDefault();
   }
 
   handleChange(e) {
