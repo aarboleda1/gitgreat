@@ -56,7 +56,7 @@ class Login extends React.Component {
   // 
   render() {
     return (
-      <div className="loginPage">
+      <div className="loginPage" style={{'width': '400px', 'margin': '0 auto'}}>
         <h1>Login</h1>
         <input className="form-control" type="text" placeholder="Account Name"
                value={this.state.accountName} 

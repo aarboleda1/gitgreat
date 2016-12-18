@@ -107,6 +107,7 @@ class App extends React.Component {
           featuredEvent={this.state.featuredEvent} 
           isPlanning={this.isPlanningFeaturedEvent()}
           accountName={this.state.accountName}
+          updateEvents={this.updateEvents}
         />);
     } else if (this.state.page === 'createEvent') {
       view = 

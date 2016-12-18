@@ -20,15 +20,19 @@ class Attendees extends React.Component {
     var successHandler = function(data) {
       // need to turn the attendees from the data into an array of names
       // console log data here after writing the route
-      
+      var attendeeArray = [];
+      var attendees = JSON.parse(data);
+      attendees.forEach( (attendee) => {
+        attendeeArray.push(attendee.accountName);
+      });
       this.setState({
-        attendees: data
+        attendees: attendeeArray
       });
     };
 
     $.ajax({
       method: 'GET',
-      url: '/attendingEvents',
+      url: '/attendee',
       data: {
         eventName: this.currentProps.eventName
       },
@@ -55,6 +59,7 @@ class Attendees extends React.Component {
         eventName: this.currentProps.eventName
       })
     });
+
   }
 
   handleClickRemove(e) {
@@ -67,12 +72,16 @@ class Attendees extends React.Component {
       attendees: newArray
     });
 
-    // Do an AJAX put request to the server to update attendee array
+    // Do an AJAX delete request to the server to remove an attendee
     $.ajax({
-      method: 'PUT',
-      url: 'updateattendee',
-      data: newArray
+      method: 'DELETE',
+      url: '/attendingEvents',
+      data: {
+        accountName: name,
+        eventName: this.currentProps.eventName
+      }
     });
+
   }
 
   render() {

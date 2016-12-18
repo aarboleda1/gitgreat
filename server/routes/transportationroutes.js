@@ -9,6 +9,7 @@ module.exports = function(app) {
       attributes: ['id'],
       where: { name: req.query.eventName }
     }).then(function(eventId) {
+      console.log('eventId from trans: ', eventId);
       var id = eventId.dataValues.id;
       dbModels.Cars.findOne({
         where: { eventId: id }

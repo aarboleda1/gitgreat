@@ -73,7 +73,7 @@ class Reminders extends React.Component {
     return (
     <div className="reminder-wrapper"> 
     
-      <div className="bringForm">
+      <div className="bringForm" style={{'width': '600px', 'margin': '0 auto'}}>
         <h3>Reminder</h3>
         <form onSubmit={this.handleReminderSubmit}>
           <label>

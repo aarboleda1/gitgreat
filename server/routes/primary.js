@@ -38,12 +38,12 @@ module.exports = function(app){
       pw: req.body.pw
     })
     .then(function(user) {
-      res.redirect('/')
+      res.redirect('/');
     })
     .catch(function(error) {
       console.log('Error in posting user to server', error);
       next(error);
-    })
+    });
   });
 
   // post an event to table
@@ -87,8 +87,8 @@ module.exports = function(app){
     .catch(function(error) {
       console.log('serverside error in GET /attendee table');
       next(error);
-    })
-  })
+    });
+  });
 
   // For a given user, get all their attending events
   app.get('/attendingEvents', function(req, res, next) {
@@ -114,13 +114,16 @@ module.exports = function(app){
     .catch(function(error) {
       console.log('serverside error in GET /eventTable');
       next(error);
-    })
+    });
   });
 
   // For a given event, add a user as an 'attendee' to that event
   app.post('/attendingEvents', function(req, res, next) {
     var accountName = '"' + req.body.accountName + '"';
     var eventName = '"' + req.body.eventName + '"';
+    var parsedName = JSON.parse(accountName);
+
+
     var queryString ='INSERT INTO eventattendees (eventId, userId) \
                       SELECT \
                         event.id, user.id \
@@ -128,22 +131,35 @@ module.exports = function(app){
                       INNER JOIN events AS event \
                         ON user.accountName = ' + accountName +
                       ' AND event.name = ' + eventName;
-    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
-    .then(function(success) {
-      res.end(JSON.stringify(success));
-    })
-    .catch(function(error) {
-      console.log('POST Error', error);
-      next(error);
+
+    // When adding an attendee to an event, check to see if that user is in the database
+    // If they are not in there then add them to the database
+    dbModels.User.findOrCreate({
+      where: { accountName: parsedName }
+    }).then(function(success) {
+      dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.INSERT })
+      .then(function(success) {
+        res.end(JSON.stringify(success));
+      })
+      .catch(function(error) {
+        console.log('POST Error', error);
+        next(error);
+      });
     });
-  })
+
+  });
 
   // For a given event and user, remove user as an attendee
   app.delete('/attendingEvents', function(req, res, next) {
-    var userId = req.body.user.id;
-    var eventId = req.body.event.id;
+    console.log('REQUESTBODY', req.body);
+    var accountName = req.body.accountName;
+    console.log('ACCOUNTNAME', accountName);
+    var eventName = req.body.eventName;
     var queryString = `DELETE ea FROM eventattendees AS ea
-                       WHERE ea.userId=${userId} AND ea.eventId=${eventId}`;
+                       INNER JOIN events as event ON (ea.eventId = event.id)
+                       INNER JOIN users as user ON (ea.userId = user.id)
+                       WHERE event.name = "${eventName}" AND
+                             user.accountName = "${accountName}"`;
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.DESTROY })
     .then(function(success) {
       res.end(JSON.stringify(success));
@@ -151,8 +167,8 @@ module.exports = function(app){
     .catch(function(error) {
       console.log('DELETE Error', error);
       next(error);
-    })
-  })
+    });
+  });
 
   // For a given user, get all their planning events
   app.get('/planningEvents', function(req, res, next) {
@@ -178,7 +194,7 @@ module.exports = function(app){
     .catch(function(error) {
       console.log('serverside error in GET /eventTable');
       next(error);
-    })
+    });
   });
 
   // For a given user, add a user as a 'planner' to that event
@@ -201,4 +217,4 @@ module.exports = function(app){
       next(error);
     });
   });
-}
+};
