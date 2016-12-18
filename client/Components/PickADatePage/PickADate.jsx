@@ -6,9 +6,6 @@ import Moment from 'moment';
 import DateList from './DateList.jsx';
 import $ from 'jquery';
 
-
-
-
 class PickADate extends React.Component {
   constructor (props) {
     super(props)
@@ -18,13 +15,15 @@ class PickADate extends React.Component {
     }
     this.selectNewDate = this.selectNewDate.bind(this);
     this.updateList = this.updateList.bind(this);
-    this.handleDateClick = this.handleDateClick.bind(this);
+    this.postNewDate = this.postNewDate.bind(this);
   }
 
-  componentDidMount () {
-    this.updateList(); 
+  componentDidMount () {  
+    // Always render latest version of list from database
+    this.updateList();       
   }
 
+  // GET request to update state of list  
   updateList () {
     var context = this;
     $.ajax({
@@ -53,22 +52,22 @@ class PickADate extends React.Component {
       description: this.props.featuredEvent.description,
       where: this.props.featuredEvent.where     
     }
-    console.log('prePOST REQUEST')
+    // gather info then send it to database
+    this.postNewDate(postInfo)
+  }
+
+  postNewDate (postInfo) {
     var context = this;
     $.ajax({
       method: 'POST',
       url: '/timedate',
       data: postInfo,
       success: function (data) {
-        console.log(data);
+        // when you successfully suggest a new time, update list on screen
         context.updateList()
       }
     })
 
-  }
-
-  handleDateClick () {
-    console.log('clicked')
   }
 
   render () {
