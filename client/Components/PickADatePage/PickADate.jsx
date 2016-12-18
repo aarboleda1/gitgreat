@@ -45,12 +45,21 @@ class PickADate extends React.Component {
     var year = dateInfo.year();
     var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
     var completeDate = month + '/' + date + '/' + year + ' ' + time;
+
+    var postInfo = {
+      date: completeDate,
+      votes: 0,
+      eventName: this.props.featuredEvent.name,
+      description: this.props.featuredEvent.description,
+      where: this.props.featuredEvent.where     
+    }
+    console.log('prePOST REQUEST')
     var context = this;
     $.ajax({
       method: 'POST',
       url: '/timedate',
-      data: this.props.featuredEvent,
-      success: function (dates) {
+      data: postInfo,
+      success: function (data) {
         console.log(data);
         context.updateList()
       }
