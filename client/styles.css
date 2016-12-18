@@ -231,10 +231,7 @@ nav a {
  *                 *
  * * * * * * * * * */
 
-.date-list {
-    display: flex;
-    justify-content: center;
-}
+
 
 .date-list-entry {
   color: #fff;

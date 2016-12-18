@@ -53,7 +53,10 @@ class DateListEntry extends React.Component {
         {this.props.date.dates}
       </div>
       <div className="votes">
-        Number of UpVotes for this Time {this.state.votes}
+        Upvotes: 
+        <bold>
+        {this.state.votes}
+        </bold>
       </div>
     </div>
 

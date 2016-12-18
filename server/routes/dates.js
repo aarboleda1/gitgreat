@@ -51,6 +51,10 @@ module.exports = function(app) {
         var id = event.get('id');
         dbModels.TimeDate
           .findAll({
+          limit: 5,
+          order: [
+            ['votes', 'DESC']
+          ],
           where: {
             eventId: id
           }
@@ -60,6 +64,43 @@ module.exports = function(app) {
         })
       }) 
   });
+
+//   something.findOne({
+//   order: [
+//     // Will escape username and validate DESC against a list of valid direction parameters
+//     ['username', 'DESC'],
+
+//     // Will order by max(age)
+//     sequelize.fn('max', sequelize.col('age')),
+
+//     // Will order by max(age) DESC
+//     [sequelize.fn('max', sequelize.col('age')), 'DESC'],
+
+//     // Will order by  otherfunction(`col1`, 12, 'lalala') DESC
+//     [sequelize.fn('otherfunction', sequelize.col('col1'), 12, 'lalala'), 'DESC'],
+
+//     // Will order by name on an associated User
+//     [User, 'name', 'DESC'],
+
+//     // Will order by name on an associated User aliased as Friend
+//     [{model: User, as: 'Friend'}, 'name', 'DESC'],
+
+//     // Will order by name on a nested associated Company of an associated User
+//     [User, Company, 'name', 'DESC'],
+//   ]
+//   // All the following statements will be treated literally so should be treated with care
+//   order: 'convert(user_name using gbk)'
+//   order: 'username DESC'
+//   order: sequelize.literal('convert(user_name using gbk)')
+// })
+
+
+
+
+
+
+
+
 
   // edit the time stamp in order to place new number of votes
   app.put('/timedate', function (req, res, next) {

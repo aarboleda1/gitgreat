@@ -107,7 +107,6 @@ class PickADate extends React.Component {
           style={ listStyle }
           className="date-list-container"
         >
-        <strong>Most Popular Dates for this Event</strong>
           <DateList             
             dateInfo={ this.state.date }
             dates={ this.state.dates }
