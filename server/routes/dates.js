@@ -1,20 +1,14 @@
 const dbModels = require('../../db/index.js');
 
 module.exports = function(app) {
-  // Find the ID of the event then 
-    // then set the foreign key of the vent
-  // New time stamp to the database
+  // Place a new timedate into DB
   app.post('/timedate', function (req, res, next) {
     var date = req.body.date;
     var votes = req.body.votes;
     var eventName = req.body.eventName;
     var description = req.body.description;
     var location = req.body.where
-    console.log(req.body, 'REQ*********')
-    console.log(date, 'DATE');
-    console.log(votes, 'VOTes');
-    console.log(eventName, 'EVENT');    
-
+    // Find event - need foreignkeyID
     dbModels.Event
       .findOne({
         where: {
@@ -25,6 +19,7 @@ module.exports = function(app) {
       })
       .then(function (event) {
       var id = event.get('id')
+      //CreateTimeDate if not yet made
       dbModels.TimeDate
         .findOrCreate({where: {
           dates: date,
@@ -36,12 +31,14 @@ module.exports = function(app) {
         })
       })
   });
-//   //get all the time stamps for that specific event
+  
+  //Get all the time stamps for specific event
   app.get('/timedate', function (req, res, next) {
-    // get all for a specific event
+    // Get all for a specific event
     var eventName = req.query.name;
     var description = req.query.description;
     var location = req.query.where;
+
     dbModels.Event
       .findOne({
         where: {
@@ -66,18 +63,16 @@ module.exports = function(app) {
 
   // edit the time stamp in order to place new number of votes
   app.put('/timedate', function (req, res, next) {
-    console.log(req.body, 'REQ BODY, FOR PUT REQUEST');
-
     var eventName = req.body.name;
     var description = req.body.description;
     var location = req.body.where;
     var dates = req.body.date; 
     var votes = req.body.votes;
-    var newVotes = parseInt(votes) + 1;
-    console.log(dates, 'DATES');
-    console.log(votes, 'VOTES');
-    console.log(id, 'ID');
 
+    // This increases the vote server side
+      // before storing it in the database
+    var newVotes = parseInt(votes) + 1;
+    // Find event first
     dbModels.Event
       .findOne({
         where: {
@@ -109,8 +104,4 @@ module.exports = function(app) {
         })
       }) 
   });
-
-
-
-
 };
