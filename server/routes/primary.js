@@ -1,5 +1,4 @@
 const dbModels = require('../../db/index.js');
-const utils = require('../utils.js');
 const url = require('url');
 
 module.exports = function(app){
@@ -70,6 +69,7 @@ module.exports = function(app){
     var eventName = '"' + req.query.eventName + '"';
 
     var queryString ='SELECT \
+                        attendee.id,\
                         attendee.accountName, \
                         attendee.displayName, \
                         attendee.pw, \
@@ -96,6 +96,7 @@ module.exports = function(app){
 
     // raw mysql query syntax
     var queryString ='SELECT \
+                        e.id, \
                         e.name, \
                         e.description, \
                         e.where, \
@@ -137,12 +138,29 @@ module.exports = function(app){
     });
   })
 
+  // For a given event and user, remove user as an attendee
+  app.delete('/attendingEvents', function(req, res, next) {
+    var userId = req.body.user.id;
+    var eventId = req.body.event.id;
+    var queryString = `DELETE ea FROM eventattendees AS ea
+                       WHERE ea.userId=${userId} AND ea.eventId=${eventId}`;
+    dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.DESTROY })
+    .then(function(success) {
+      res.end(JSON.stringify(success));
+    })
+    .catch(function(error) {
+      console.log('DELETE Error', error);
+      next(error);
+    })
+  })
+
   // For a given user, get all their planning events
   app.get('/planningEvents', function(req, res, next) {
     var accountName = '"' + req.query.accountName + '"';
 
     // raw mysql query syntax
     var queryString ='SELECT \
+                        e.id, \
                         e.name, \
                         e.description, \
                         e.where, \
