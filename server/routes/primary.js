@@ -151,10 +151,15 @@ module.exports = function(app){
 
   // For a given event and user, remove user as an attendee
   app.delete('/attendingEvents', function(req, res, next) {
-    var userId = req.body.user.id;
-    var eventId = req.body.event.id;
+    console.log('REQUESTBODY', req.body);
+    var accountName = req.body.accountName;
+    console.log('ACCOUNTNAME', accountName);
+    var eventName = req.body.eventName;
     var queryString = `DELETE ea FROM eventattendees AS ea
-                       WHERE ea.userId=${userId} AND ea.eventId=${eventId}`;
+                       INNER JOIN events as event ON (ea.eventId = event.id)
+                       INNER JOIN users as user ON (ea.userId = user.id)
+                       WHERE event.name = "${eventName}" AND
+                             user.accountName = "${accountName}"`;
     dbModels.sequelize.query(queryString, { type: dbModels.sequelize.QueryTypes.DESTROY })
     .then(function(success) {
       res.end(JSON.stringify(success));
@@ -162,8 +167,8 @@ module.exports = function(app){
     .catch(function(error) {
       console.log('DELETE Error', error);
       next(error);
-    })
-  })
+    });
+  });
 
   // For a given user, get all their planning events
   app.get('/planningEvents', function(req, res, next) {
@@ -212,4 +217,4 @@ module.exports = function(app){
       next(error);
     });
   });
-}
+};

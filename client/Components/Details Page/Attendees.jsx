@@ -76,10 +76,10 @@ class Attendees extends React.Component {
     $.ajax({
       method: 'DELETE',
       url: '/attendingEvents',
-      data: JSON.stringify({
+      data: {
         accountName: name,
         eventName: this.currentProps.eventName
-      })
+      }
     });
 
   }
