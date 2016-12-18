@@ -4,9 +4,7 @@ import Calendar from 'rc-calendar';
 import FeatureNavigation from '../FeatureNavigation.jsx';
 import Moment from 'moment';
 import DateList from './DateList.jsx';
-
-
-
+import $ from 'jquery';
 
 class PickADate extends React.Component {
   constructor (props) {
@@ -15,40 +13,61 @@ class PickADate extends React.Component {
       dates: [],
       date: null
     }
-    this.getDateInfo = this.getDateInfo.bind(this);
+    this.selectNewDate = this.selectNewDate.bind(this);
     this.updateList = this.updateList.bind(this);
-    this.handleDateClick = this.handleDateClick.bind(this);
+    this.postNewDate = this.postNewDate.bind(this);
   }
 
-  componentDidMount () {
-  // ajax request for getting all lists for 
-    // $.ajax({
-      
-    // }) 
+  componentDidMount () {  
+    // Always render latest version of list from database
+    this.updateList();       
   }
 
-  updateList (date) {
-    this.state.dates.push(date);
-    var newList = this.state.dates;
-    this.setState({
-      dates: newList
+  // GET request to update state of list  
+  updateList () {
+    var context = this;
+    $.ajax({
+      method: 'GET',
+      url: '/timedate',
+      data: this.props.featuredEvent,
+      success: function (dates) {
+        context.setState({
+          dates: dates
+        });
+      }
     })
   }
 
-  getDateInfo (dateInfo) {
+  selectNewDate (dateInfo) {
     var date = dateInfo.date();
     var month = dateInfo.month();
     var year = dateInfo.year();
     var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
     var completeDate = month + '/' + date + '/' + year + ' ' + time;
-    var updatedList = this.updateList(completeDate);
-    this.setState({
-      date: completeDate      
-    })
+
+    var postInfo = {
+      date: completeDate,
+      votes: 0,
+      eventName: this.props.featuredEvent.name,
+      description: this.props.featuredEvent.description,
+      where: this.props.featuredEvent.where     
+    }
+    // gather info then send it to database
+    this.postNewDate(postInfo)
   }
 
-  handleDateClick () {
-    console.log('clicked')
+  postNewDate (postInfo) {
+    var context = this;
+    $.ajax({
+      method: 'POST',
+      url: '/timedate',
+      data: postInfo,
+      success: function (data) {
+        // when you successfully suggest a new time, update list on screen
+        context.updateList()
+      }
+    })
+
   }
 
   render () {
@@ -66,7 +85,7 @@ class PickADate extends React.Component {
       <div className="pick-a-date-container">
 
           <div style={ titleStyle }>
-            <h4>Choose a Time and Date For This Event!</h4>
+            <h4>Choose a Time and Date For {this.props.featuredEvent.name}!</h4>
           </div>
           <div style={titleStyle}className="instruction-container">
             <ul>
@@ -79,7 +98,7 @@ class PickADate extends React.Component {
 
         <div id="calendar-container">
           <Calendar 
-            onSelect={ (info) => this.getDateInfo(info) }
+            onSelect={ (info) => this.selectNewDate(info) }
             showToday={ false }
             showDateInput={ false }
           />
@@ -88,12 +107,12 @@ class PickADate extends React.Component {
           style={ listStyle }
           className="date-list-container"
         >
-        <strong>Most Popular Dates for this Event</strong>
           <DateList             
             dateInfo={ this.state.date }
             dates={ this.state.dates }
             handleDateClick={ () => this.handleDateClick }
             featuredEvent={this.props.featuredEvent}
+            updateList={this.updateList}
           />
         </div>
       </div>

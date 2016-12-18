@@ -51,7 +51,9 @@ var ItemList = sequelize.define('itemlists', {
   },
   cost: {
     type: Sequelize.STRING
-  },
+  }
+}, {
+  timestamps: false
 });
 
 var Reminder = sequelize.define('reminders', {

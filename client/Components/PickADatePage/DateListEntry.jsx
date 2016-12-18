@@ -5,41 +5,40 @@ class DateListEntry extends React.Component {
   constructor (props) {
     super (props)
     this.state = {
-      votes: 1,
+      votes: this.props.date.votes,
       hasVoted: false
     } 
-    console.log(this.props,' FEATREUD');
   }
-  // Allows users to vote for a time 
+
   increaseVote () {
-    // everytime a user updates a date, send it to DB 
+    // everytime a user updates a vote, send this information 
+      // to the database with these paramters 
     this.sendToDB({
-      date: this.props.dateInfo,
+      name: this.props.featuredEvent.name,
+      description: this.props.featuredEvent.description,
+      where: this.props.featuredEvent.where,
+      date: this.props.date.dates,
       votes: this.state.votes,
-      eventName: this.props.eventName,
-      description: this.props.description,
-      location: this.props.where
     }); 
-
-    if(!this.state.hasVoted){
-      this.setState((prevVotes)=> {
-        return {
-          votes: prevVotes.votes + 1,
-          hasVoted: !this.state.hasVoted
-        };
-      })
-    }
   }
 
-  // When the user clicks on a new event, send that to the database
-  // date will be an object
-  sendToDB (date) {
+  // When the user clicks on an event from the list, update it in the database 
+  //and get the new list back
+  sendToDB (dateInfo) {
+    var context = this;
     $.ajax({
-      method: 'POST',
+      method: 'PUT',
       url: '/timedate',
-      data: date
+      data: dateInfo,
+      success: function (dateInfo) {
+        // update view with new vote
+        context.setState({
+          votes: dateInfo.votes
+        })
+        context.props.updateList();
+      }
     });
-  }
+  };
 
   render () {
     const dateStyle = {
@@ -51,17 +50,20 @@ class DateListEntry extends React.Component {
     return (
     <div className="date-wrapper" onClick={ () => this.increaseVote() }>
       <div style={ dateStyle } className='date-list-entry'>
-        {this.props.date}
+        {this.props.date.dates}
       </div>
       <div className="votes">
-        Number of UpVotes for this Time {this.state.votes}
+        Upvotes: 
+        <bold>
+        {this.state.votes}
+        </bold>
       </div>
     </div>
 
     ) 
   }
 
-}
+};
 
 
 
