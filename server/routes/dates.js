@@ -9,9 +9,12 @@ module.exports = function(app) {
     var votes = req.body.votes;
     var eventName = req.body.eventName;
     var description = req.body.description;
-    var location = req.body.location
-    
-    // find the event the create a new TimeDate
+    var location = req.body.where
+    console.log(req.body, 'REQ*********')
+    console.log(date, 'DATE');
+    console.log(votes, 'VOTes');
+    console.log(eventName, 'EVENT');    
+
     dbModels.Event
       .findOne({
         where: {
@@ -21,7 +24,7 @@ module.exports = function(app) {
         }
       })
       .then(function (event) {
-        var id = event.get('id')
+      var id = event.get('id')
       dbModels.TimeDate
         .findOrCreate({where: {
           dates: date,
@@ -56,19 +59,58 @@ module.exports = function(app) {
           }
         })
         .then(function (dates) {
-          console.log(dates, 'DATES INSIDE DATES.JS');
           res.send(dates);
         })
       }) 
   });
 
-//   // edit the time stamp in order to place new number of votes
-//   app.put();
+  // edit the time stamp in order to place new number of votes
+  app.put('/timedate', function (req, res, next) {
+    console.log(req.body, 'REQ BODY, FOR PUT REQUEST');
+
+    var eventName = req.body.name;
+    var description = req.body.description;
+    var location = req.body.where;
+    var dates = req.body.date; 
+    var votes = req.body.votes;
+    var newVotes = parseInt(votes) + 1;
+    console.log(dates, 'DATES');
+    console.log(votes, 'VOTES');
+    console.log(id, 'ID');
+
+    dbModels.Event
+      .findOne({
+        where: {
+          name: eventName,
+          description: description, 
+          where: location
+        }
+      })
+      .then(function (event) {  
+        // find the specific comment for that event
+        var id = event.get('id');
+        dbModels.TimeDate
+          .findOne({
+          where: {
+            dates: dates,
+            votes: votes, 
+            eventId: id
+          }
+        })
+        .then(function (timedate) {
+          //update the current votes with new votes
+          timedate.updateAttributes({
+            votes: newVotes
+          })  
+          .then(function (updated, err) {
+            if (err) throw err 
+            res.send(updated);          
+          })
+        })
+      }) 
+  });
 
 
-// { name: 'Social Night',
-//   description: 'GAMES/HOLIDAY STUFF',
-//   where: 'Hack Reactor',
-//   when: '' }
+
 
 };

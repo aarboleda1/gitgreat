@@ -16,7 +16,7 @@ class PickADate extends React.Component {
       dates: [],
       date: null
     }
-    this.getDateInfo = this.getDateInfo.bind(this);
+    this.selectNewDate = this.selectNewDate.bind(this);
     this.updateList = this.updateList.bind(this);
     this.handleDateClick = this.handleDateClick.bind(this);
   }
@@ -39,16 +39,23 @@ class PickADate extends React.Component {
     })
   }
 
-  getDateInfo (dateInfo) {
+  selectNewDate (dateInfo) {
     var date = dateInfo.date();
     var month = dateInfo.month();
     var year = dateInfo.year();
     var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
     var completeDate = month + '/' + date + '/' + year + ' ' + time;
-    var updatedList = this.updateList(completeDate);
-    this.setState({
-      date: completeDate      
+    var context = this;
+    $.ajax({
+      method: 'POST',
+      url: '/timedate',
+      data: this.props.featuredEvent,
+      success: function (dates) {
+        console.log(data);
+        context.updateList()
+      }
     })
+
   }
 
   handleDateClick () {
@@ -83,7 +90,7 @@ class PickADate extends React.Component {
 
         <div id="calendar-container">
           <Calendar 
-            onSelect={ (info) => this.getDateInfo(info) }
+            onSelect={ (info) => this.selectNewDate(info) }
             showToday={ false }
             showDateInput={ false }
           />
@@ -98,6 +105,7 @@ class PickADate extends React.Component {
             dates={ this.state.dates }
             handleDateClick={ () => this.handleDateClick }
             featuredEvent={this.props.featuredEvent}
+            updateList={this.updateList}
           />
         </div>
       </div>
