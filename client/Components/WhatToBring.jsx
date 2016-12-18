@@ -5,21 +5,22 @@ import $ from 'jquery';
 import FeatureNavigation from './FeatureNavigation.jsx';
 import Nav from './nav.jsx';
 
-
 class WhatToBring extends React.Component {
   constructor(props) {
+    // props contains current event as featuredEvent
     super(props);
     this.state = {
-      itemList: [{item: 'mashed potatoes', cost: '20', owner: 'Jenn'}],
-      currentItem: null,
-      currentOwner: null,
-      currentCost: null
+      itemList: [],
+      item: '',
+      owner: '',
+      cost: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleItemChange = this.handleItemChange.bind(this);
     this.handleCostChange = this.handleCostChange.bind(this);
     this.handleOwnerChange = this.handleOwnerChange.bind(this);
     this.fetchItems = this.fetchItems.bind(this);
+    this.removeItem = this.removeItem.bind(this);
   }
   componentDidMount() {
     this.fetchItems();
@@ -30,7 +31,7 @@ class WhatToBring extends React.Component {
     //so that we can display the itemlist associated with a specific event
     var eventParam = this.props.featuredEvent.name.split(' ').join('_');
     var successHandler = function(data) {
-      this.setState({itemList: data});
+      this.setState({itemList: JSON.parse(data)});
     };
     $.ajax({
       method: 'GET',
@@ -42,39 +43,49 @@ class WhatToBring extends React.Component {
   handleSubmit(event) {
     //The event name is passed along to the server via query parameters 
     //so that we can post to the itemlistTable associated with a specific event
-    var item = {
-      item: this.state.currentItem,
-      cost: this.state.currentCost,
-      owner: this.state.currentOwner
-    };
-    var successHandler = function(data) {
-      this.fetchItems();
-    };
     var eventParam = this.props.featuredEvent.name.split(' ').join('_');
     $.ajax({
       method: 'POST',
       url: '/itemList?eventName=' + eventParam,
-      data: JSON.stringify(item),
       contentType: 'application/json',
-      success: successHandler.bind(this)
+      data: JSON.stringify({ item: 
+                            { item: this.state.item,
+                              owner: this.state.owner,
+                              cost: this.state.cost }
+                          }),
+      success: this.fetchItems
     });
+
+    this.setState({ item: '', owner: '', cost: '' });
+
     event.preventDefault();
   }
 
   handleItemChange(event) {
     this.setState({
-      currentItem: event.target.value
+      item: event.target.value
     });
   }
   handleOwnerChange(event) {
     this.setState({
-      currentOwner: event.target.value
+      owner: event.target.value
     });
   }
   handleCostChange(event) {
     this.setState({
-      currentCost: event.target.value
+      cost: event.target.value
     });
+  }
+
+  removeItem(remove) {
+    var eventParam = this.props.featuredEvent.name.split(' ').join('_');
+    $.ajax({
+      method: 'DELETE',
+      url: '/itemList?eventName=' + eventParam,
+      contentType: 'application/json',
+      data: JSON.stringify({ item: remove}),
+      success: this.fetchItems
+    })
   }
 
   render() {
@@ -117,7 +128,7 @@ class WhatToBring extends React.Component {
           </thead>
           <tbody>
             {this.state.itemList.map( (item, index) => 
-              <tr key={index}>
+              <tr key={index} onClick={() => (this.removeItem(item))}>
                 <th>{item.owner}</th>
                 <th>{item.item}</th>
                 <th>{item.cost}</th>
