@@ -59,6 +59,7 @@ class Attendees extends React.Component {
         eventName: this.currentProps.eventName
       })
     });
+
   }
 
   handleClickRemove(e) {
@@ -71,12 +72,16 @@ class Attendees extends React.Component {
       attendees: newArray
     });
 
-    // Do an AJAX put request to the server to update attendee array
+    // Do an AJAX delete request to the server to remove an attendee
     $.ajax({
-      method: 'PUT',
-      url: 'updateattendee',
-      data: newArray
+      method: 'DELETE',
+      url: '/attendingEvents',
+      data: JSON.stringify({
+        accountName: name,
+        eventName: this.currentProps.eventName
+      })
     });
+
   }
 
   render() {
