@@ -11,41 +11,33 @@ class DateListEntry extends React.Component {
   }
 
   increaseVote () {
-    // everytime a user updates a date, send it to DB 
+    // everytime a user updates a vote, send this information 
+      // to the database with these paramters 
     this.sendToDB({
-      date: this.props.date,
-      votes: this.state.votes,
       name: this.props.featuredEvent.name,
       description: this.props.featuredEvent.description,
-      where: this.props.featuredEvent.where
+      where: this.props.featuredEvent.where,
+      date: this.props.date.dates,
+      votes: this.state.votes,
     }); 
-
-    if(!this.state.hasVoted){
-      this.setState((prevVotes)=> {
-        return {
-          votes: prevVotes.votes + 1,
-          hasVoted: !this.state.hasVoted
-        };
-      })
-    }
   }
 
-  // When the user clicks on an event from the list, update it in the database and get the new list back
+  // When the user clicks on an event from the list, update it in the database 
+  //and get the new list back
   sendToDB (dateInfo) {
-    console.log(dateInfo, 'DATEINFO 38 DLE');
     var context = this;
     $.ajax({
       method: 'PUT',
       url: '/timedate',
       data: dateInfo,
-      success: function (data) {
-        console.log('being updated')
+      success: function (dateInfo) {
+        // update view with new vote
+        context.setState({
+          votes: dateInfo.votes
+        })
+        context.props.updateList();
       }
     });
-  };
-
-  updateVote () {
-
   };
 
   render () {
