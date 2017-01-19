@@ -27,7 +27,7 @@ app.use(webpackDevMiddleware(compiler, {
   historyApiFallback: true,
 }));
 
-app.use(express.static(path.join(__dirname,'../dist')));
+app.use(express.static(path.join(__dirname, '../dist')));
 //serve node_modules via the '/script' virtual file path
 app.use('/scripts', express.static(path.join(__dirname, '../node_modules')));
 

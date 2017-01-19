@@ -1,5 +1,5 @@
 import React from 'react';
-import Nav from '../nav.jsx'
+import Nav from '../nav.jsx';
 import Calendar from 'rc-calendar';
 import FeatureNavigation from '../FeatureNavigation.jsx';
 import Moment from 'moment';
@@ -8,11 +8,11 @@ import $ from 'jquery';
 
 class PickADate extends React.Component {
   constructor (props) {
-    super(props)
+    super(props);
     this.state = {
       dates: [],
       date: null
-    }
+    };
     this.selectNewDate = this.selectNewDate.bind(this);
     this.updateList = this.updateList.bind(this);
     this.postNewDate = this.postNewDate.bind(this);
@@ -35,14 +35,14 @@ class PickADate extends React.Component {
           dates: dates
         });
       }
-    })
+    });
   }
 
   selectNewDate (dateInfo) {
     var date = dateInfo.date();
     var month = dateInfo.month();
     var year = dateInfo.year();
-    var time = prompt('Please select a time for ' + month + '/' + date + '/' + year)
+    var time = prompt('Please select a time for ' + month + '/' + date + '/' + year);
     var completeDate = month + '/' + date + '/' + year + ' ' + time;
 
     var postInfo = {
@@ -51,9 +51,9 @@ class PickADate extends React.Component {
       eventName: this.props.featuredEvent.name,
       description: this.props.featuredEvent.description,
       where: this.props.featuredEvent.where     
-    }
+    };
     // gather info then send it to database
-    this.postNewDate(postInfo)
+    this.postNewDate(postInfo);
   }
 
   postNewDate (postInfo) {
@@ -64,9 +64,9 @@ class PickADate extends React.Component {
       data: postInfo,
       success: function (data) {
         // when you successfully suggest a new time, update list on screen
-        context.updateList()
+        context.updateList();
       }
-    })
+    });
 
   }
 
@@ -75,12 +75,12 @@ class PickADate extends React.Component {
       'display': 'flex',
       'flexDirection': 'row',
       'justifyContent': 'center',
-    }
+    };
     const titleStyle = {
       'display': 'flex',
       'flexDirection': 'row',
       'justifyContent': 'center'
-    }
+    };
     return (
       <div className="pick-a-date-container">
 
@@ -116,7 +116,7 @@ class PickADate extends React.Component {
           />
         </div>
       </div>
-    ) 
+    ); 
   }
 }
 

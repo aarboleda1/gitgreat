@@ -19,7 +19,7 @@ class Login extends React.Component {
       url: '/user?accountName=' + this.state.accountName,
       success: function(data) {
         var parsed = JSON.parse(data);
-        if (parsed.notFound){
+        if (parsed.notFound) {
           // user was not found in database, post them to db
           $.ajax({
             method: 'POST',
@@ -29,13 +29,13 @@ class Login extends React.Component {
             success: function(success) {
               this.props.handleLogin(accountName);
             }.bind(this)
-          })
+          });
         } else {
           // user was found, login using the accountName
           this.props.handleLogin(accountName);
         }
       }.bind(this)
-    })
+    });
   }
 
   userSignup(accountName) {
@@ -66,7 +66,7 @@ class Login extends React.Component {
           Submit
         </button>
       </div>
-    )
+    );
   }
 }
 

@@ -123,7 +123,7 @@ module.exports = function(app){
     var eventName = '"' + req.body.eventName + '"';
     var parsedName = JSON.parse(accountName);
 
-
+ 
     var queryString ='INSERT INTO eventattendees (eventId, userId) \
                       SELECT \
                         event.id, user.id \
