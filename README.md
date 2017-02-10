@@ -1,4 +1,4 @@
-# Project Name
+# PlanThis
 
 PlanThis is a collaborative event planner designed to make group event-planning easy. Sign-in to your group's channel, create an event, and start planning details!
 
